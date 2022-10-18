@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="vector_illustrator_height">@dimen/_220sdp</dimen>
+    <dimen name="headline_text_size">@dimen/_20ssp</dimen>
+</resources>

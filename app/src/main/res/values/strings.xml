@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Old Book Store</string>
+    <string name="email_id">Email ID</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="new_to_old_book_store">New to Old Book Store?</string>
+    <string name="forgot_password">Forgot Password?</string>
 </resources>

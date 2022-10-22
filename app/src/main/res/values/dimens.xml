@@ -2,4 +2,7 @@
 <resources>
     <dimen name="vector_illustrator_height">@dimen/_220sdp</dimen>
     <dimen name="headline_text_size">@dimen/_20ssp</dimen>
+    <dimen name="edit_text_margin_top">@dimen/_10sdp</dimen>
+    <dimen name="edit_text_margin_start">@dimen/_5sdp</dimen>
+    <dimen name="forgot_pass_text_size">@dimen/_12ssp</dimen>
 </resources>

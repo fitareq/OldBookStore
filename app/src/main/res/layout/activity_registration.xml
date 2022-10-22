@@ -5,36 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/main_layout_padding"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.registration.RegistrationActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/register_illustrator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/vector_illustrator_height"
-        android:src="@drawable/login_illustrator"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout_editor_absoluteX="13dp" />
+        android:background="@drawable/register_illustration"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textView"
         style="@style/TextHeadLine"
-        android:text="@string/login"
+        android:text="@string/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/register_illustrator" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="13dp">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,50 +83,78 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1"
-                    android:src="@drawable/ic_lock" />
+                    android:src="@drawable/ic_face" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/password_layout"
+                    android:id="@+id/full_name_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/edit_text_margin_start"
                     android:layout_weight="0.9"
-                    android:hint="Password"
-                    app:passwordToggleEnabled="true">
+                    android:hint="Full name">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password_et"
+                        android:id="@+id/full_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_phone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobile_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edit_text_margin_start"
+                    android:layout_weight="0.9"
+                    android:hint="@string/mobile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mobile_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:imeOptions="actionDone"
-                        android:inputType="textPassword"
+                        android:inputType="phone"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/forgot_pass_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:gravity="end"
-                android:text="@string/forgot_password"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/forgot_pass_text_size"
-                android:textStyle="bold" />
+                android:text="@string/sign_up_caution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <Button
-                android:id="@+id/login_btn"
+                android:id="@+id/continue_btn"
                 style="@style/button"
-                android:text="@string/login" />
+                android:text="@string/_continue" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -138,18 +165,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_to_old_book_store"
+            android:text="@string/joined_us_before"
             android:textSize="@dimen/forgot_pass_text_size" />
 
         <TextView
-            android:id="@+id/register_tv"
+            android:id="@+id/login_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/edit_text_margin_start"
-            android:text="@string/register"
+            android:text="@string/login"
             android:textColor="@color/primary"
             android:textSize="@dimen/forgot_pass_text_size"
             android:textStyle="bold" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,4 +5,9 @@
     <string name="register">Register</string>
     <string name="new_to_old_book_store">New to Old Book Store?</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="joined_us_before">Joined us before?</string>
+    <string name="mobile">Mobile</string>
+    <string name="_continue">Continue</string>
+    <string name="sign_up_caution"><![CDATA[By signing up, you\'re agree to our Terms & Conditions and Privacy Policy]]></string>
 </resources>

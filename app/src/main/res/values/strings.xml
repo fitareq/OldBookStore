@@ -10,4 +10,15 @@
     <string name="mobile">Mobile</string>
     <string name="_continue">Continue</string>
     <string name="sign_up_caution"><![CDATA[By signing up, you\'re agree to our Terms & Conditions and Privacy Policy]]></string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="address">Address</string>
+    <string name="sample_title">Tomar ekta akash ache priyo</string>
+    <string name="sample_subtitle">Twelfth Night is a fast-paced romantic comedy with several interwoven plots of romance, mistaken identities and practical jokes.</string>
+    <string name="sample_date">April 29, 2022</string>
+    <string name="sample_time">10.00am</string>
+    <string name="author">Author: %1$s</string>
+    <string name="published_by">Published by: %1$s</string>
+    <string name="price">%1$s BDT</string>
+    <string name="available">Available</string>
 </resources>

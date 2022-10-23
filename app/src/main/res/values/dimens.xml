@@ -7,4 +7,8 @@
     <dimen name="forgot_pass_text_size">@dimen/_12ssp</dimen>
     <dimen name="main_layout_padding">@dimen/_10sdp</dimen>
     <dimen name="button_padding">@dimen/_10sdp</dimen>
+    <dimen name="item_title_text_size">@dimen/_15ssp</dimen>
+    <dimen name="item_sub_title_text_size">@dimen/_12ssp</dimen>
+    <dimen name="price_text_size">@dimen/_12ssp</dimen>
+    <dimen name="item_margin_top">@dimen/_5sdp</dimen>
 </resources>

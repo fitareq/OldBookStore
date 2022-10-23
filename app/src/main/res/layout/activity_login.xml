@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/edit_text_margin_start"
                     android:layout_weight="0.9"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText

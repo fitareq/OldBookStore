@@ -7,9 +7,12 @@
         <entry key="app/src/main/res/drawable/ic_at.xml" value="0.105" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.105" />
         <entry key="app/src/main/res/drawable/rounded_imageview_back.xml" value="0.105" />
+        <entry key="app/src/main/res/drawable/transparent_gradient.xml" value="0.105" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.18888888888888888" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/activity_profile_setup.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.17735042735042736" />
+        <entry key="app/src/main/res/layout/item_card.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.18803418803418803" />
       </map>
     </option>

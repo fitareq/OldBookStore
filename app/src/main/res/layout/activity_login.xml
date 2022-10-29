@@ -87,6 +87,7 @@
                     android:src="@drawable/ic_lock" />
 
                 <com.google.android.material.textfield.TextInputLayout
+
                     android:id="@+id/password_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

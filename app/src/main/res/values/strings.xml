@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Old Book Store</string>
     <string name="email_id">Email ID</string>
-    <string name="login">Login</string>
+    <string name="loginBody">Login</string>
     <string name="register">Register</string>
     <string name="new_to_old_book_store">New to Old Book Store?</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -21,4 +21,9 @@
     <string name="published_by">Published by: %1$s</string>
     <string name="price">%1$s BDT</string>
     <string name="available">Available</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="more">More</string>
+    <string name="items_for_sale">Items For Sale</string>
 </resources>

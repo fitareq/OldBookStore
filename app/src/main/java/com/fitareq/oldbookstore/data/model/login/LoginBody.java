@@ -1,10 +1,10 @@
 package com.fitareq.oldbookstore.data.model.login;
 
-public class Login {
+public class LoginBody {
     private String email;
     private String password;
 
-    public Login(String email, String password) {
+    public LoginBody(String email, String password) {
         this.email = email;
         this.password = password;
     }

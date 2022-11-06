@@ -118,10 +118,11 @@
                 android:textSize="@dimen/forgot_pass_text_size"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/login_btn"
-                style="@style/button"
-                android:text="@string/loginBody" />
+                <Button
+                    android:id="@+id/login_btn"
+                    style="@style/button"
+                    android:text="@string/loginBody" />
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

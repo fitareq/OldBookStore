@@ -15,30 +15,31 @@ import retrofit2.Response;
 
 public class LoginRepository {
     private ApiService apiService;
-    private MutableLiveData<LoginResponse> _loginResponse;
     public LoginRepository() {
         apiService = Api.getInstance().getApiService();
-        _loginResponse = new MutableLiveData<>();
     }
 
-    public MutableLiveData<LoginResponse> userLogin(LoginBody body){
+    public void userLogin(LoginBody body, LoginCallBack loginCallBack){
         Call<LoginResponse> call = apiService.userLogin(body);
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                if (response.isSuccessful()){
-                    _loginResponse.postValue(response.body());
-                }
+                if (response.isSuccessful() && response.body() != null){
+                    loginCallBack.onSuccess(response.body().getAccessToken());
+                }else loginCallBack.onFailure(response.message());
             }
 
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-
+                loginCallBack.onFailure(t.getMessage());
             }
         });
-
-        return _loginResponse;
     }
 
+
+    public interface LoginCallBack{
+        void onSuccess(String token);
+        void onFailure(String errorMessage);
+    }
 }

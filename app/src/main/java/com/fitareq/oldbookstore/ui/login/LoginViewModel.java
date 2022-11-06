@@ -13,14 +13,13 @@ import com.fitareq.oldbookstore.data.repository.LoginRepository;
 
 public class LoginViewModel extends AndroidViewModel {
     private LoginRepository repository;
-    public LiveData<LoginResponse> loginResponse;
     public LoginViewModel(@NonNull Application application) {
         super(application);
         repository = new LoginRepository();
     }
 
-    public void userLogin(LoginBody body){
-        loginResponse = repository.userLogin(body);
+    public void userLogin(LoginBody body, LoginRepository.LoginCallBack loginCallBack){
+        repository.userLogin(body, loginCallBack);
     }
 
 

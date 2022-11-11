@@ -5,7 +5,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AppConstants {
-    public static final String BASE_URL = "https://oldbookstore.topnewsbd.live/api/";
+    public static final String BASE_URL = "https://oldbookstore.topnewsbd.live/api/v1/";
+    public static final String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
 
     public static final String DATE_FORMAT = "hh:mmaa  MMM dd,yyyy";
 

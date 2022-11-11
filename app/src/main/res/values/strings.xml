@@ -26,4 +26,15 @@
     <string name="title">Title</string>
     <string name="more">More</string>
     <string name="items_for_sale">Items For Sale</string>
+    <string name="password_length">Password must be at least 6 character</string>
+    <string name="enter_pass">Enter password</string>
+    <string name="enter_mail">Enter email</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_mobile">Enter phone number</string>
+    <string name="password_didnt_match">Password didn\'t match</string>
+    <string name="enter_address">Enter address</string>
+    <string name="success">Success</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="okay">Okay</string>
 </resources>

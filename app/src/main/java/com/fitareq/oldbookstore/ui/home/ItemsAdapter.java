@@ -29,7 +29,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ItemsViewHolder holder, int position) {
-        holder.binding.publishedDate.setText(AppConstants.getDate(12345L));
+        //holder.binding..setText(AppConstants.getDate(12345L));
     }
 
     @Override

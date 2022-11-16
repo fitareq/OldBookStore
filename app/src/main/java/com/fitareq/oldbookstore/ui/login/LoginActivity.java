@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private LoginViewModel viewModel;
+    private CustomDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        dialog = new CustomDialog(LoginActivity.this);
+
+        
 
         binding.loginBtn.setOnClickListener(view -> userLogin());
         binding.registerTv.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegistrationActivity.class)));
@@ -54,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         binding.loginBtn.setEnabled(false);
-        CustomDialog dialog = new CustomDialog(LoginActivity.this);
+
         dialog.loading();
 
         viewModel.userLogin(new LoginBody(email, password), new LoginRepository.LoginCallBack() {

@@ -235,7 +235,11 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:imeOptions="actionDone"
-                        android:inputType="textPostalAddress" />
+                        android:inputType="textPostalAddress"
+                        android:clickable="true"
+                        android:focusable="false"
+
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

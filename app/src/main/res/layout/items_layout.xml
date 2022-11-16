@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:textColor="@color/black"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="@dimen/rv_title_text_size"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintEnd_toStartOf="@+id/more"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_5sdp"
         android:text="@string/more"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/rv_title_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

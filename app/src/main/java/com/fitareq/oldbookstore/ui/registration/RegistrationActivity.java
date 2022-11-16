@@ -1,19 +1,41 @@
 package com.fitareq.oldbookstore.ui.registration;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
 import com.fitareq.oldbookstore.data.repository.RegistrationRepository;
 import com.fitareq.oldbookstore.databinding.ActivityRegistrationBinding;
+import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.login.LoginActivity;
 import com.fitareq.oldbookstore.utils.CustomDialog;
+import com.fitareq.oldbookstore.utils.PrefConstants;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -22,6 +44,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private String longitude, latitude;
     private CustomDialog dialog;
 
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +53,54 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
-
         dialog =new CustomDialog(this);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        //sfindLocation();
         longitude = "123456";
         latitude = "123456";
 
         binding.continueBtn.setOnClickListener(view -> {
             registerUser();
         });
+        binding.addressEt.setOnClickListener(view -> {
+            askForPermission();
+            findLocation();
+        });
+    }
+
+    private void findLocation() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+                if (location != null){
+                    Geocoder geocoder = new Geocoder(RegistrationActivity.this, Locale.getDefault());
+                    try {
+                        List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        Address address = addressList.get(0);
+                        Log.v("@@@@@", "lat: "+address.getLatitude());
+                        Log.v("@@@@@", "lon: "+address.getLongitude());
+                        Log.v("@@@@@", "city: "+address.getLocality());
+                        Log.v("@@@@@", "country: "+address.getCountryName());
+                        Log.v("@@@@@", "address: "+address.getAddressLine(0));
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }else{
+            askForPermission();
+        }
+    }
+
+    private void askForPermission() {
+        ActivityCompat.requestPermissions(RegistrationActivity.this, new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        }, 100);
     }
 
     private void registerUser() {
@@ -71,19 +134,38 @@ public class RegistrationActivity extends AppCompatActivity {
             binding.emailIdLayout.setError(getString(R.string.enter_address));
             return;
         }
+        dialog.loading();
         RegistrationBody body = new RegistrationBody(fullName, email, mobile, password, address, latitude, longitude);
         viewModel.registerUser(body, new RegistrationRepository.RegistrationCallBack() {
             @Override
             public void onSuccess(RegistrationResponse registrationResponse) {
-                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                finish();
+                PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, registrationResponse.getAccessToken(), RegistrationActivity.this);
+                PrefConstants.setUserLoggedIn(RegistrationActivity.this, true);
+                dialog.success();
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                        finish();
+                    }
+                },500);
+
             }
 
             @Override
             public void onFailed(String message) {
-
+                dialog.error(message);
             }
         });
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 100)
+        {
+            //if (grantResults.length > 0 && grantResults[0])
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

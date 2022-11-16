@@ -1,6 +1,9 @@
 package com.fitareq.oldbookstore.ui.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,12 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.fitareq.oldbookstore.R;
-import com.fitareq.oldbookstore.data.model.item.Item;
 import com.fitareq.oldbookstore.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -40,6 +38,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
 
         binding.oldBookStoreItems.more.setOnClickListener(view -> {
 

@@ -41,7 +41,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private ActivityRegistrationBinding binding;
     private RegistrationViewModel viewModel;
-    private String longitude, latitude;
+    private String longitude,latitude,address;
     private CustomDialog dialog;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -51,6 +51,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //askForPermission();
 
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         dialog =new CustomDialog(this);
@@ -58,33 +59,47 @@ public class RegistrationActivity extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         //sfindLocation();
-        longitude = "123456";
-        latitude = "123456";
 
         binding.continueBtn.setOnClickListener(view -> {
             registerUser();
         });
         binding.addressEt.setOnClickListener(view -> {
             askForPermission();
-            findLocation();
+            //findLocation();
         });
     }
 
     private void findLocation() {
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ){
 
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
                 if (location != null){
                     Geocoder geocoder = new Geocoder(RegistrationActivity.this, Locale.getDefault());
                     try {
                         List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        Address address = addressList.get(0);
-                        Log.v("@@@@@", "lat: "+address.getLatitude());
-                        Log.v("@@@@@", "lon: "+address.getLongitude());
-                        Log.v("@@@@@", "city: "+address.getLocality());
-                        Log.v("@@@@@", "country: "+address.getCountryName());
-                        Log.v("@@@@@", "address: "+address.getAddressLine(0));
+                        Address addrs = addressList.get(0);
+                        latitude = String.valueOf(addrs.getLatitude());
+                        longitude = String.valueOf(addrs.getLongitude());
+                        address = addrs.getAddressLine(0);
+                        binding.addressEt.setText(address);
+                        Log.v("@@@@@", "lat: "+addrs.getLatitude());
+                        Log.v("@@@@@", "lon: "+addrs.getLongitude());
+                        Log.v("@@@@@", "locality: "+addrs.getLocality());
+                        Log.v("@@@@@", "admin: "+addrs.getAdminArea());
+                        Log.v("@@@@@", "premises: "+addrs.getPremises());
+                        Log.v("@@@@@", "sub admin: "+addrs.getSubAdminArea());
+                        Log.v("@@@@@", "sub locality: "+addrs.getSubLocality());
+                        Log.v("@@@@@", "feature: "+addrs.getFeatureName());
+                        Log.v("@@@@@", "fare: "+addrs.getThoroughfare());
+                        Log.v("@@@@@", "sub fare: "+addrs.getSubThoroughfare());
+                        Log.v("@@@@@", "extras: "+addrs.getExtras());
+                        Log.v("@@@@@", "country: "+addrs.getCountryName());
+                        Log.v("@@@@@", "address: "+addrs.getAddressLine(0));
+                        Log.v("@@@@@", "total address: "+addrs.getMaxAddressLineIndex());
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -164,7 +179,16 @@ public class RegistrationActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 100)
         {
-            //if (grantResults.length > 0 && grantResults[0])
+
+            if (grantResults.length > 0)
+            {
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                        ContextCompat.checkSelfPermission(this,
+                                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                   findLocation();
+                }
+            }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }

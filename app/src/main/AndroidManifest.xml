@@ -4,8 +4,8 @@
     package="com.fitareq.oldbookstore">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.add_post.AddPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.profile_setup.ProfileSetupActivity"
             android:exported="false" />
         <activity
@@ -26,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,9 +38,7 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

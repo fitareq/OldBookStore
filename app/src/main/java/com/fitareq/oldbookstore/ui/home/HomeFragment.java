@@ -1,5 +1,6 @@
 package com.fitareq.oldbookstore.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.databinding.FragmentHomeBinding;
+import com.fitareq.oldbookstore.ui.add_post.AddPostActivity;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,9 @@ public class HomeFragment extends Fragment {
 
         binding.oldBookStoreItems.more.setOnClickListener(view -> {
 
+        });
+        binding.addPostFab.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), AddPostActivity.class));
         });
 
         return binding.getRoot();

@@ -14,31 +14,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
-    <ImageView
-        android:id="@+id/register_illustrator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vector_illustrator_height"
-        android:background="@drawable/register_illustration"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextHeadLine"
-        android:text="@string/sign_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_illustrator" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <ImageView
+                android:id="@+id/register_illustrator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vector_illustrator_height"
+                android:background="@drawable/register_illustration"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/TextHeadLine"
+                android:text="@string/sign_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_illustrator" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -137,6 +136,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/password_ll"
                 android:layout_width="match_parent"
@@ -227,63 +227,68 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/edit_text_margin_start"
                     android:layout_weight="0.9"
-                    android:hint="@string/address">
+
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/address_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPostalAddress"
                         android:clickable="true"
                         android:focusable="false"
-
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:hint="@string/address"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_margin_top"
+                    android:text="@string/sign_up_caution" />
+
+                <Button
+                    android:id="@+id/continue_btn"
+                    style="@style/button"
+                    android:text="@string/_continue" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/joined_us_before"
+                        android:textSize="@dimen/forgot_pass_text_size" />
+
+                    <TextView
+                        android:id="@+id/login_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/edit_text_margin_start"
+                        android:text="@string/loginBody"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/forgot_pass_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
-            android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:text="@string/sign_up_caution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/continue_btn"
-            style="@style/button"
-            android:text="@string/_continue" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/joined_us_before"
-                android:textSize="@dimen/forgot_pass_text_size" />
-
-            <TextView
-                android:id="@+id/login_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/edit_text_margin_start"
-                android:text="@string/loginBody"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/forgot_pass_text_size"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

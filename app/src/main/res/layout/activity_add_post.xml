@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.add_post.AddPostActivity">
+    tools:context=".ui.add_book.AddBookActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -80,8 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/quantity_layout"
@@ -119,6 +119,7 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/description_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -128,54 +129,57 @@
                 android:hint="Description...">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:gravity="start"
                     android:id="@+id/description_et"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
+                    android:gravity="start"
                     android:imeOptions="actionDone"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
-                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey"/>
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@color/grey" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/image_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/edit_text_margin_top"/>
-            <View
                 android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:orientation="horizontal" />
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey"/>
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@color/grey" />
+
             <TextView
                 android:id="@+id/add_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Photo"
-                android:textSize="@dimen/item_sub_title_text_size"
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:drawablePadding="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
                 android:gravity="center_vertical"
+                android:padding="@dimen/_5sdp"
+                android:text="Add Photo"
+                android:textColor="@color/black"
+                android:textSize="@dimen/item_sub_title_text_size"
+                android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_baseline_image_24" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey"/>
+                android:background="@color/grey" />
 
             <Button
                 android:id="@+id/post_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Post"
-                android:layout_marginTop="@dimen/edit_text_margin_top"/>
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:text="Post" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

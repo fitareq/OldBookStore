@@ -1,9 +1,11 @@
 package com.fitareq.oldbookstore.data.model.login;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
     @SerializedName("access_token")
+    @Expose
     private String accessToken;
     @SerializedName("token_type")
     private String tokenType;

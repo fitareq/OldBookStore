@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.add_post.AddPostActivity"
+            android:name=".ui.add_book.AddBookActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile_setup.ProfileSetupActivity"

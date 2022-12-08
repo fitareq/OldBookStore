@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.databinding.FragmentHomeBinding;
-import com.fitareq.oldbookstore.ui.add_post.AddPostActivity;
+import com.fitareq.oldbookstore.ui.add_book.AddBookActivity;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
         });
         binding.addPostFab.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), AddPostActivity.class));
+            startActivity(new Intent(getActivity(), AddBookActivity.class));
         });
 
         return binding.getRoot();

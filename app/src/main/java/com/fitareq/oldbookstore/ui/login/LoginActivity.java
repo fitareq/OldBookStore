@@ -34,34 +34,49 @@ public class LoginActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         dialog = new CustomDialog(LoginActivity.this);
 
-        
 
         binding.loginBtn.setOnClickListener(view -> userLogin());
         binding.registerTv.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegistrationActivity.class)));
+
+
+        viewModel.loginResponse.observe(this, loginResponse -> {
+            if (loginResponse != null) {
+                switch (loginResponse.getStatus()) {
+                    case LOADING:
+                        dialog.loading();
+                        break;
+                    case SUCCESS:
+                        dialog.error(loginResponse.getMessage());
+                        break;
+                    case FAILED:
+                        dialog.error(loginResponse.getMessage());
+                        break;
+                }
+            }
+        });
     }
 
     private void userLogin() {
         String email = binding.emailIdEt.getText().toString();
         String password = binding.passwordEt.getText().toString();
 
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             binding.emailIdLayout.setError("Enter email");
             return;
         }
-        if (TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             //binding.passwordEt.setError("Enter password");
             binding.passwordLayout.setError("Enter Password");
             return;
-        }else if (password.length() < 6){
+        } else if (password.length() < 6) {
             binding.passwordLayout.setError(getString(R.string.password_length));
             return;
         }
 
         binding.loginBtn.setEnabled(false);
+        viewModel.userLogin(new LoginBody(email, password));
 
-        dialog.loading();
-
-        viewModel.userLogin(new LoginBody(email, password), new LoginRepository.LoginCallBack() {
+        /*viewModel.userLogin(new LoginBody(email, password), new LoginRepository.LoginCallBack() {
             @Override
             public void onSuccess(String token) {
                 //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
@@ -75,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
-                },500);
+                }, 500);
 
             }
 
@@ -85,6 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                 binding.loginBtn.setEnabled(true);
                 dialog.error(errorMessage);
             }
-        });
+        });*/
     }
 }

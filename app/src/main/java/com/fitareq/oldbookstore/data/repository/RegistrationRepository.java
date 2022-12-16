@@ -1,7 +1,13 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.fitareq.oldbookstore.data.model.login.LoginResponse;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
+import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
+import com.fitareq.oldbookstore.data.model.responses.RepositoryResponse;
 import com.fitareq.oldbookstore.data.network.ApiService;
 import com.fitareq.oldbookstore.data.network.Api;
 
@@ -11,30 +17,31 @@ import retrofit2.Response;
 
 public class RegistrationRepository {
     private ApiService apiService;
+    private MutableLiveData<RepositoryResponse<RegistrationResponse>> _registrationResponse;
+    private LiveData<RepositoryResponse<RegistrationResponse>> registrationResponse;
 
     public RegistrationRepository() {
         apiService = Api.getInstance().getApiService();
+        _registrationResponse = new MutableLiveData<>();
+        registrationResponse = _registrationResponse;
     }
 
-    public void registerUser(RegistrationBody registrationBody, RegistrationCallBack callBack){
-        Call<RegistrationResponse> call = apiService.userRegistration(registrationBody);
-        call.enqueue(new Callback<RegistrationResponse>() {
+    public LiveData<RepositoryResponse<RegistrationResponse>> registerUser(RegistrationBody registrationBody){
+        _registrationResponse.postValue(RepositoryResponse.loading());
+        Call<ApiResponse<RegistrationResponse>> call = apiService.userRegistration(registrationBody);
+        call.enqueue(new Callback<ApiResponse<RegistrationResponse>>() {
             @Override
-            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
+            public void onResponse(Call<ApiResponse<RegistrationResponse>> call, Response<ApiResponse<RegistrationResponse>> response) {
                 if (response.isSuccessful() && response.body() != null){
-                    callBack.onSuccess(response.body());
-                }else callBack.onFailed(response.message());
+                    _registrationResponse.postValue(RepositoryResponse.success(response.body().getMessage(), response.body().getData()));
+                }else _registrationResponse.postValue(RepositoryResponse.error(response.message()));
             }
 
             @Override
-            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                callBack.onFailed(t.getMessage());
+            public void onFailure(Call<ApiResponse<RegistrationResponse>> call, Throwable t) {
+                _registrationResponse.postValue(RepositoryResponse.error(t.getMessage()));
             }
         });
-    }
-
-    public interface RegistrationCallBack{
-        void onSuccess(RegistrationResponse registrationResponse);
-        void onFailed(String message);
+        return registrationResponse;
     }
 }

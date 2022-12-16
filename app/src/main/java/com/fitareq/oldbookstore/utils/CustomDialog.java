@@ -49,7 +49,7 @@ public class CustomDialog {
         dismissDialog();
         setView(activity.getLayoutInflater().inflate(R.layout.error_layout, null));
         TextView textView = view.findViewById(R.id.error_message);
-        if (msg == null)
+        if (msg == null || msg.isEmpty())
             msg = activity.getString(R.string.something_went_wrong);
         textView.setText(msg);
 

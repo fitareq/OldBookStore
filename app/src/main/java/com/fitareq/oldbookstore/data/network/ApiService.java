@@ -22,9 +22,9 @@ import retrofit2.http.Part;
 
 public interface ApiService {
     @POST("login")
-    Call<LoginResponse> userLogin(@Body LoginBody loginBody);
+    Call<ApiResponse<LoginResponse>> userLogin(@Body LoginBody loginBody);
     @POST("register")
-    Call<RegistrationResponse> userRegistration(@Body RegistrationBody registrationBody);
+    Call<ApiResponse<RegistrationResponse>> userRegistration(@Body RegistrationBody registrationBody);
 
     @Multipart
     @POST("books")

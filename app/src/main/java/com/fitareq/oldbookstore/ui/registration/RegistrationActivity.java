@@ -151,25 +151,27 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         dialog.loading();
         RegistrationBody body = new RegistrationBody(fullName, email, mobile, password, address, latitude, longitude);
-        viewModel.registerUser(body, new RegistrationRepository.RegistrationCallBack() {
-            @Override
-            public void onSuccess(RegistrationResponse registrationResponse) {
-                PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, registrationResponse.getAccessToken(), RegistrationActivity.this);
-                PrefConstants.setUserLoggedIn(RegistrationActivity.this, true);
-                dialog.success();
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                        finish();
-                    }
-                },500);
 
-            }
-
-            @Override
-            public void onFailed(String message) {
-                dialog.error(message);
+        viewModel.registerUser(body).observe(this, registrationResponse->{
+            switch (registrationResponse.getStatus()){
+                case LOADING:
+                    dialog.loading();
+                    break;
+                case SUCCESS:
+                    PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, registrationResponse.getData().getAccessToken(), RegistrationActivity.this);
+                    PrefConstants.setUserLoggedIn(RegistrationActivity.this, true);
+                    dialog.success();
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    },500);
+                    break;
+                case FAILED:
+                    dialog.error(registrationResponse.getMessage());
+                    break;
             }
         });
 

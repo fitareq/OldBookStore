@@ -38,22 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(view -> userLogin());
         binding.registerTv.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegistrationActivity.class)));
 
-
-        viewModel.loginResponse.observe(this, loginResponse -> {
-            if (loginResponse != null) {
-                switch (loginResponse.getStatus()) {
-                    case LOADING:
-                        dialog.loading();
-                        break;
-                    case SUCCESS:
-                        dialog.error(loginResponse.getMessage());
-                        break;
-                    case FAILED:
-                        dialog.error(loginResponse.getMessage());
-                        break;
-                }
-            }
-        });
     }
 
     private void userLogin() {
@@ -74,7 +58,35 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         binding.loginBtn.setEnabled(false);
-        viewModel.userLogin(new LoginBody(email, password));
+        viewModel.userLogin(new LoginBody(email, password)).observe(this, loginResponse->{
+            if (loginResponse != null) {
+                switch (loginResponse.getStatus()) {
+                    case LOADING:
+                        dialog.loading();
+                        break;
+                    case SUCCESS:
+                        dialog.success();
+                        PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, loginResponse.getData().getAccessToken(), LoginActivity.this);
+                        PrefConstants.setUserLoggedIn(LoginActivity.this, true);
+                        binding.loginBtn.setEnabled(true);
+                        dialog.success();
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }, 500);
+                        break;
+                    case FAILED:
+                        dialog.error(loginResponse.getMessage());
+                        break;
+                    default:
+                        binding.loginBtn.setEnabled(false);
+                        break;
+                }
+            }
+        });
 
         /*viewModel.userLogin(new LoginBody(email, password), new LoginRepository.LoginCallBack() {
             @Override

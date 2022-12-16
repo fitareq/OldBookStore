@@ -4,8 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
+import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
+import com.fitareq.oldbookstore.data.model.responses.RepositoryResponse;
 import com.fitareq.oldbookstore.data.repository.RegistrationRepository;
 
 public class RegistrationViewModel extends AndroidViewModel {
@@ -15,7 +19,7 @@ public class RegistrationViewModel extends AndroidViewModel {
         repository = new RegistrationRepository();
     }
 
-    public void registerUser(RegistrationBody registrationBody, RegistrationRepository.RegistrationCallBack callBack){
-        repository.registerUser(registrationBody, callBack);
+    public LiveData<RepositoryResponse<RegistrationResponse>> registerUser(RegistrationBody registrationBody){
+        return repository.registerUser(registrationBody);
     }
 }

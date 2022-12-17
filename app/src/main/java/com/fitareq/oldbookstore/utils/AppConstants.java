@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.utils;
 
+import com.fitareq.oldbookstore.BuildConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -10,6 +12,9 @@ public class AppConstants {
     public static String TOKEN = "";
 
     public static final String DATE_FORMAT = "hh:mmaa  MMM dd,yyyy";
+
+    public static final int REQUEST_IMAGE = 101;
+    public static final String KEY_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
 
     public static String getDate(long milliSeconds)

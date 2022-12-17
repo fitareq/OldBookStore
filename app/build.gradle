@@ -61,5 +61,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     //image selector
-    implementation 'com.zhihu.android:matisse:0.5.2'
+    //implementation 'com.zhihu.android:matisse:0.5.2'
+    implementation project(path: ':matisse')
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

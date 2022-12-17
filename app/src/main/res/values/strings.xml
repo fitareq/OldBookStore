@@ -29,6 +29,7 @@
     <string name="password_length">Password must be at least 6 character</string>
     <string name="enter_pass">Enter password</string>
     <string name="enter_mail">Enter email</string>
+    <string name="enter_valid_mail">Enter a valid email</string>
     <string name="enter_name">Enter name</string>
     <string name="enter_mobile">Enter phone number</string>
     <string name="password_didnt_match">Password didn\'t match</string>

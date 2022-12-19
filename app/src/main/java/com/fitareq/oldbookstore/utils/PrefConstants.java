@@ -35,5 +35,6 @@ public class PrefConstants {
             editor = context.getSharedPreferences(MY_PREF_NAME, Context.MODE_PRIVATE).edit();
 
        editor.putBoolean(AppConstants.IS_USER_LOGGED_IN, value);
+       editor.apply();
     }
 }

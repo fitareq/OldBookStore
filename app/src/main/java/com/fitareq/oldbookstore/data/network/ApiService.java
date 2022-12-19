@@ -1,10 +1,10 @@
 package com.fitareq.oldbookstore.data.network;
 
 import com.fitareq.oldbookstore.data.model.add_book.AddBookResponse;
-import com.fitareq.oldbookstore.data.model.item.Item;
+import com.fitareq.oldbookstore.data.model.homepage_books.Data;
+import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
 import com.fitareq.oldbookstore.data.model.login.LoginResponse;
-import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
 import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
 
@@ -23,8 +23,19 @@ import retrofit2.http.Part;
 public interface ApiService {
     @POST("login")
     Call<ApiResponse<LoginResponse>> userLogin(@Body LoginBody loginBody);
+
+    @Multipart
     @POST("register")
-    Call<ApiResponse<RegistrationResponse>> userRegistration(@Body RegistrationBody registrationBody);
+    Call<ApiResponse<RegistrationResponse>> userRegistration(
+            @Part("name")RequestBody name,
+            @Part("email")RequestBody email,
+            @Part("phone")RequestBody phone,
+            @Part("password")RequestBody password,
+            @Part("address")RequestBody address,
+            @Part("lat")RequestBody lat,
+            @Part("lon")RequestBody lon,
+            @Part MultipartBody.Part image
+    );
 
     @Multipart
     @POST("books")
@@ -38,6 +49,6 @@ public interface ApiService {
             @Part  MultipartBody.Part[] image
     );
 
-    @GET("books")
-    Call<List<Item>>getAllBooks(@Header("Authorization") String token);
+    @GET("homepage-books")
+    Call<ApiResponse<Data>>getAllBooks();
 }

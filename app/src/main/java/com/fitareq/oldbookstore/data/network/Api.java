@@ -1,17 +1,12 @@
 package com.fitareq.oldbookstore.data.network;
 
-import android.content.Context;
-
 import com.fitareq.oldbookstore.utils.AppConstants;
-import com.fitareq.oldbookstore.utils.PrefConstants;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,8 +25,8 @@ public class Api {
         };
 
         return new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .readTimeout(2, TimeUnit.MINUTES)
                 .addInterceptor(interceptor)
                 .build();
     }

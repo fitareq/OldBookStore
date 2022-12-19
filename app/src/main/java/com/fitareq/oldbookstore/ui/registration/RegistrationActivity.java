@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -24,10 +25,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
@@ -38,6 +41,7 @@ import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -45,7 +49,9 @@ import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private RegistrationViewModel viewModel;
     private String longitude, latitude, address;
     private CustomDialog dialog;
+    private File file = null;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -70,6 +77,7 @@ public class RegistrationActivity extends AppCompatActivity {
         dialog = new CustomDialog(this);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        binding.registerIllustrator.setClipToOutline(true);
 
         //sfindLocation();
 
@@ -144,6 +152,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
                 if (location != null) {
+                    dialog.loading();
                     Geocoder geocoder = new Geocoder(RegistrationActivity.this, Locale.getDefault());
                     try {
                         List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -152,23 +161,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         longitude = String.valueOf(addrs.getLongitude());
                         address = addrs.getAddressLine(0);
                         binding.addressEt.setText(address);
-                        Log.v("@@@@@", "lat: " + addrs.getLatitude());
-                        Log.v("@@@@@", "lon: " + addrs.getLongitude());
-                        Log.v("@@@@@", "locality: " + addrs.getLocality());
-                        Log.v("@@@@@", "admin: " + addrs.getAdminArea());
-                        Log.v("@@@@@", "premises: " + addrs.getPremises());
-                        Log.v("@@@@@", "sub admin: " + addrs.getSubAdminArea());
-                        Log.v("@@@@@", "sub locality: " + addrs.getSubLocality());
-                        Log.v("@@@@@", "feature: " + addrs.getFeatureName());
-                        Log.v("@@@@@", "fare: " + addrs.getThoroughfare());
-                        Log.v("@@@@@", "sub fare: " + addrs.getSubThoroughfare());
-                        Log.v("@@@@@", "extras: " + addrs.getExtras());
-                        Log.v("@@@@@", "country: " + addrs.getCountryName());
-                        Log.v("@@@@@", "address: " + addrs.getAddressLine(0));
-                        Log.v("@@@@@", "total address: " + addrs.getMaxAddressLineIndex());
-
+                        dialog.dismissDialog();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        dialog.error("Failed to get current location!!");
                     }
                 }
             });
@@ -225,7 +221,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
         dialog.loading();
-        RegistrationBody body = new RegistrationBody(fullName, email, mobile, password, address, latitude, longitude);
+        RegistrationBody body = new RegistrationBody(fullName, email, mobile, password, address, latitude, longitude, file);
 
         viewModel.registerUser(body).observe(this, registrationResponse -> {
             switch (registrationResponse.getStatus()) {
@@ -281,25 +277,59 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == AppConstants.REQUEST_IMAGE ) {
+        if (requestCode == AppConstants.REQUEST_IMAGE) {
             //List<Uri> uri;
             if (data != null) {
+                dialog.loading();
                 Uri imageUri = Matisse.obtainResult(data).get(0);
-                //File file = new File(uri.get(0).getPath());
-                Bitmap bitmap = null;
-                ContentResolver contentResolver = getContentResolver();
+                compressImageUnder(imageUri);
+
+
+                //binding.registerIllustrator.setImageBitmap(bitmap);
+            }
+        }
+    }
+
+    private void compressImageUnder(Uri imageUri) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
                 try {
-                    if(Build.VERSION.SDK_INT < 28) {
+                    Bitmap bitmap;
+                    ContentResolver contentResolver = getContentResolver();
+                    if (Build.VERSION.SDK_INT < 28) {
                         bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
                     } else {
                         ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
                         bitmap = ImageDecoder.decodeBitmap(source);
                     }
+                    file = new File(RegistrationActivity.this.getCacheDir(), "profile_image.jpg");
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.registerIllustrator.setPadding(0,0,0,0);
+                            Picasso.with(RegistrationActivity.this).load(file).fit().into(binding.registerIllustrator);
+                            dialog.dismissDialog();
+                        }
+                    });
+
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.error(e.getMessage());
+                        }
+                    });
+
                 }
-                binding.registerIllustrator.setImageBitmap(bitmap);
+
             }
-        }
+        }).start();
+
     }
 }

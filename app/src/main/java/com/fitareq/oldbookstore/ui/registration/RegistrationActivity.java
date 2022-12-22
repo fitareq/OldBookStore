@@ -5,18 +5,12 @@ import static com.fitareq.oldbookstore.utils.AppConstants.KEY_PROVIDER_AUTHORITY
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,12 +19,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
@@ -38,18 +29,18 @@ import com.fitareq.oldbookstore.databinding.ActivityRegistrationBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.CustomDialog;
+import com.fitareq.oldbookstore.utils.ImageUtils;
+import com.fitareq.oldbookstore.utils.PermissionUtils;
 import com.fitareq.oldbookstore.utils.PrefConstants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
-import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -64,7 +55,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private CustomDialog dialog;
     private File file = null;
 
-    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,19 +65,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         dialog = new CustomDialog(this);
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         binding.registerIllustrator.setClipToOutline(true);
-
-        //sfindLocation();
 
         binding.continueBtn.setOnClickListener(view -> {
             registerUser();
         });
         binding.addressEt.setOnClickListener(view -> {
-            askForLocationPermission();
             getCurrentLocation();
-            //findLocation();
         });
         binding.registerIllustrator.setOnClickListener(view -> {
             selectImage();
@@ -95,36 +79,24 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED
+        if (PermissionUtils.isLocationPermissionGranted(this)
         ) {
-            askForLocationPermission();
+            findLocation();
 
         } else {
-            findLocation();
+            PermissionUtils.askForLocationPermission(this);
         }
     }
 
     private void selectImage() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-        ) {
-            askForStoragePermission();
-        } else {
+        if (PermissionUtils.isStoragePermissionGranted(this)) {
             getImageFromStorage();
+        } else {
+            PermissionUtils.askForStoragePermission(this);
         }
     }
 
     private void getImageFromStorage() {
-       /* Matisse.from(RegistrationActivity.this)
-                .choose(MimeType.ofAll(), false)
-                .countable(false)
-                .maxSelectable(1)
-                .imageEngine(new PicassoEngine()).capture(true)
-                .captureStrategy(new CaptureStrategy(false, KEY_PROVIDER_AUTHORITY))
-                .forResult(AppConstants.REQUEST_IMAGE);*/
-
-
         Matisse.from(this)
                 .choose(MimeType.ofImage(), false)
                 .countable(true)
@@ -136,49 +108,30 @@ public class RegistrationActivity extends AppCompatActivity {
                 .forResult(AppConstants.REQUEST_IMAGE);
     }
 
-    private void askForStoragePermission() {
-        ActivityCompat.requestPermissions(RegistrationActivity.this, new String[]{
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }, 200);
-    }
-
+    @SuppressLint("MissingPermission")
     private void findLocation() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
-                if (location != null) {
-                    dialog.loading();
-                    Geocoder geocoder = new Geocoder(RegistrationActivity.this, Locale.getDefault());
-                    try {
-                        List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        Address addrs = addressList.get(0);
-                        latitude = String.valueOf(addrs.getLatitude());
-                        longitude = String.valueOf(addrs.getLongitude());
-                        address = addrs.getAddressLine(0);
-                        binding.addressEt.setText(address);
-                        dialog.dismissDialog();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        dialog.error("Failed to get current location!!");
-                    }
+        FusedLocationProviderClient
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                dialog.loading();
+                Geocoder geocoder = new Geocoder(RegistrationActivity.this, Locale.getDefault());
+                try {
+                    List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    Address addrs = addressList.get(0);
+                    latitude = String.valueOf(addrs.getLatitude());
+                    longitude = String.valueOf(addrs.getLongitude());
+                    address = addrs.getAddressLine(0);
+                    binding.addressEt.setText(address);
+                    dialog.dismissDialog();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    dialog.error("Failed to get current location!!");
                 }
-            });
-        } else {
-            askForLocationPermission();
-        }
+            }
+        });
     }
 
-    private void askForLocationPermission() {
-        ActivityCompat.requestPermissions(RegistrationActivity.this, new String[]{
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        }, 100);
-    }
 
     private void registerUser() {
         String email = binding.emailIdEt.getText().toString();
@@ -250,25 +203,19 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 100) {
+        if (requestCode == AppConstants.REQUEST_PERMISSION_LOCATION) {
 
             if (grantResults.length > 0) {
-                if (ContextCompat.checkSelfPermission(RegistrationActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                        ContextCompat.checkSelfPermission(RegistrationActivity.this,
-                                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (PermissionUtils.isLocationPermissionGranted(this)) {
                     findLocation();
-                } else askForLocationPermission();
-            } else askForLocationPermission();
-        } else if (requestCode == 200) {
+                } else PermissionUtils.askForLocationPermission(this);
+            } else PermissionUtils.askForLocationPermission(this);
+        } else if (requestCode == AppConstants.REQUEST_PERMISSION_STORAGE) {
             if (grantResults.length > 0) {
-                if (ContextCompat.checkSelfPermission(RegistrationActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
-                        ContextCompat.checkSelfPermission(RegistrationActivity.this,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (PermissionUtils.isStoragePermissionGranted(this)) {
                     getImageFromStorage();
-                } else askForStoragePermission();
-            } else askForStoragePermission();
+                } else PermissionUtils.askForStoragePermission(this);
+            } else PermissionUtils.askForStoragePermission(this);
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -282,7 +229,7 @@ public class RegistrationActivity extends AppCompatActivity {
             if (data != null) {
                 dialog.loading();
                 Uri imageUri = Matisse.obtainResult(data).get(0);
-                compressImageUnder(imageUri);
+                compressImageQualityIntoHalf(imageUri);
 
 
                 //binding.registerIllustrator.setImageBitmap(bitmap);
@@ -290,30 +237,17 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void compressImageUnder(Uri imageUri) {
+    private void compressImageQualityIntoHalf(Uri imageUri) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Bitmap bitmap;
-                    ContentResolver contentResolver = getContentResolver();
-                    if (Build.VERSION.SDK_INT < 28) {
-                        bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
-                    } else {
-                        ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
-                        bitmap = ImageDecoder.decodeBitmap(source);
-                    }
-                    file = new File(RegistrationActivity.this.getCacheDir(), "profile_image.jpg");
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream);
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-
+                    file = ImageUtils.compressImageQualityIntoHalf(imageUri, RegistrationActivity.this, "profile_image");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.registerIllustrator.setPadding(0,0,0,0);
-                            Picasso.with(RegistrationActivity.this).load(file).fit().into(binding.registerIllustrator);
+                            binding.registerIllustrator.setPadding(0, 0, 0, 0);
+                            Picasso.with(RegistrationActivity.this).load(file).memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(binding.registerIllustrator);
                             dialog.dismissDialog();
                         }
                     });

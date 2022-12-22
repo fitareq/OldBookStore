@@ -163,7 +163,7 @@
                 android:drawablePadding="@dimen/_10sdp"
                 android:gravity="center_vertical"
                 android:padding="@dimen/_5sdp"
-                android:text="Add Photo"
+                android:text="Add Photo (Max 4 image)"
                 android:textColor="@color/black"
                 android:textSize="@dimen/item_sub_title_text_size"
                 android:textStyle="bold"

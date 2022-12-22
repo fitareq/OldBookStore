@@ -14,6 +14,8 @@ public class AppConstants {
     public static final String DATE_FORMAT = "hh:mmaa  MMM dd,yyyy";
 
     public static final int REQUEST_IMAGE = 101;
+    public static final int REQUEST_PERMISSION_STORAGE = 200;
+    public static final int REQUEST_PERMISSION_LOCATION = 100;
     public static final String KEY_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
 

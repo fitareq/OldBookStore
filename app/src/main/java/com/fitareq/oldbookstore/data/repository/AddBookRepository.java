@@ -7,12 +7,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.fitareq.oldbookstore.data.model.add_book.AddBookBody;
 import com.fitareq.oldbookstore.data.model.add_book.AddBookResponse;
+import com.fitareq.oldbookstore.data.model.add_book.Category;
 import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
 import com.fitareq.oldbookstore.data.model.responses.RepositoryResponse;
 import com.fitareq.oldbookstore.data.network.Api;
 import com.fitareq.oldbookstore.data.network.ApiService;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -23,11 +26,19 @@ import retrofit2.Response;
 
 public class AddBookRepository {
     private ApiService apiService;
-    private final MutableLiveData<RepositoryResponse<AddBookResponse>> _addBookResponse;
+    private MutableLiveData<RepositoryResponse<AddBookResponse>> _addBookResponse;
+    private LiveData<RepositoryResponse<AddBookResponse>> addBookResponse;
+
+    private MutableLiveData<RepositoryResponse<List<Category>>> _categories;
+    private LiveData<RepositoryResponse<List<Category>>> categories;
 
     public AddBookRepository() {
         apiService = Api.getInstance().getApiService();
         _addBookResponse = new MutableLiveData<>();
+        addBookResponse = _addBookResponse;
+        _categories = new MutableLiveData<>();
+        categories = _categories;
+
     }
 
     public LiveData<RepositoryResponse<AddBookResponse>> addBook(AddBookBody body) {
@@ -39,21 +50,22 @@ public class AddBookRepository {
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), body.getDescription());
         RequestBody quantity = RequestBody.create(MediaType.parse("text/plain"), body.getQuantity());
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), body.getPrice());
-        MultipartBody.Part[] images = new MultipartBody.Part[body.getImage().size()];
+        List<MultipartBody.Part> image = new ArrayList<>();
 
         int i = 0;
-        for (Uri fileUri : body.getImage()) {
-            File file = new File(fileUri.getPath());
+        for (File file : body.getImage()) {
             RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), file);
-            images[i] = MultipartBody.Part.createFormData(
-                    "image",
+            MultipartBody.Part part = MultipartBody.Part.createFormData(
+                    "image["+i+"]",
                     file.getName(),
                     imageBody
             );
+            image.add(part);
+            ++i;
         }
 
 
-        Call<ApiResponse<AddBookResponse>> call = apiService.addPost(title, authorName, categoryId, description, quantity, price, images);
+        Call<ApiResponse<AddBookResponse>> call = apiService.addPost(title, authorName, categoryId, description, quantity, price, image);
         call.enqueue(new Callback<ApiResponse<AddBookResponse>>() {
             @Override
             public void onResponse(Call<ApiResponse<AddBookResponse>> call, Response<ApiResponse<AddBookResponse>> response) {
@@ -74,6 +86,25 @@ public class AddBookRepository {
         });
 
 
-        return _addBookResponse;
+        return addBookResponse;
+    }
+
+    public LiveData<RepositoryResponse<List<Category>>> getCategories(){
+        _categories.postValue(RepositoryResponse.loading());
+        Call<ApiResponse<List<Category>>> call = apiService.getAllCategory();
+        call.enqueue(new Callback<ApiResponse<List<Category>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Category>>> call, Response<ApiResponse<List<Category>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    _categories.postValue(RepositoryResponse.success(response.message(), response.body().getData()));
+                }else _categories.postValue(RepositoryResponse.error(response.message()));
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<List<Category>>> call, Throwable t) {
+                _categories.postValue(RepositoryResponse.error(t.getMessage()));
+            }
+        });
+        return categories;
     }
 }

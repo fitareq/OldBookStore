@@ -175,11 +175,11 @@
                 android:background="@color/grey" />
 
             <Button
-                android:id="@+id/post_button"
+                android:id="@+id/add_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:text="Post" />
+                android:text="Add Book" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

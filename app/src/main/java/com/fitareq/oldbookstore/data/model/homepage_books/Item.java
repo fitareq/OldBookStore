@@ -3,6 +3,8 @@ package com.fitareq.oldbookstore.data.model.homepage_books;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Item {
     @SerializedName("id")
     @Expose
@@ -52,8 +54,11 @@ public class Item {
     @SerializedName("user")
     @Expose
     private User user;
+    @SerializedName("images")
+    @Expose
+    private List<String> images;
 
-    public Item(Integer id, String title, String authorName, String categoryId, String image1, String image2, String image3, String image4, String description, String qty, String price, String userId, String createdAt, String updatedAt, Category category, User user) {
+    public Item(Integer id, String title, String authorName, String categoryId, String image1, String image2, String image3, String image4, String description, String qty, String price, String userId, String createdAt, String updatedAt, Category category, User user, List<String> images) {
         this.id = id;
         this.title = title;
         this.authorName = authorName;
@@ -70,6 +75,7 @@ public class Item {
         this.updatedAt = updatedAt;
         this.category = category;
         this.user = user;
+        this.images = images;
     }
 
     public Integer getId() {
@@ -134,5 +140,9 @@ public class Item {
 
     public User getUser() {
         return user;
+    }
+
+    public List<String> getImages() {
+        return images;
     }
 }

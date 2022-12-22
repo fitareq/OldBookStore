@@ -29,6 +29,7 @@ public class CustomDialog {
 
     // dismiss method
     public void dismissDialog() {
+        if (dialog != null)
         dialog.dismiss();
     }
 
@@ -40,13 +41,15 @@ public class CustomDialog {
     }
 
     public void success() {
-        dismissDialog();
+        if (dialog != null)
+            dismissDialog();
         setView(activity.getLayoutInflater().inflate(R.layout.success_layout, null));
         dialog.show();
     }
 
     public void error(String msg) {
-        dismissDialog();
+        if (dialog != null)
+            dismissDialog();
         setView(activity.getLayoutInflater().inflate(R.layout.error_layout, null));
         TextView textView = view.findViewById(R.id.error_message);
         if (msg == null || msg.isEmpty())

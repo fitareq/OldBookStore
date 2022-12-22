@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.databinding.FragmentHomeBinding;
+import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.add_book.AddBookActivity;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 
@@ -96,5 +97,11 @@ public class HomeFragment extends Fragment {
         binding.oldBookStoreItems.title.setText(R.string.app_name);
         binding.oldBookStoreItems.itemsRv.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
         binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(items));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).updateTitle("Home");
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.book_details.BookDetailsActivity">
+
+    <include
+        android:id="@+id/toolbar_lay"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/book_images"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_230sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_lay" />
+
+    <TextView
+        android:id="@+id/images_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent_back"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/images_count"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/book_images" />
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        app:layout_constraintTop_toBottomOf="@+id/book_images" />
+    <TextView
+        android:id="@+id/book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/author"
+        app:layout_constraintTop_toBottomOf="@+id/book_title" />
+    <TextView
+        android:id="@+id/book_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        app:layout_constraintTop_toBottomOf="@+id/book_author" />
+    <TextView
+        android:id="@+id/book_qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        app:layout_constraintTop_toBottomOf="@+id/book_price" />
+    <TextView
+        android:id="@+id/book_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        app:layout_constraintTop_toBottomOf="@+id/book_qty" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

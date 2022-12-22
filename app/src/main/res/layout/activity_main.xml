@@ -10,19 +10,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name"
-        android:background="@color/primary"
-        app:titleTextColor="@color/white"/>
+        app:titleTextColor="@color/white" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/main_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:navGraph="@navigation/main_navigation"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:navGraph="@navigation/main_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

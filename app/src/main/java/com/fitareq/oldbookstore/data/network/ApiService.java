@@ -1,6 +1,7 @@
 package com.fitareq.oldbookstore.data.network;
 
 import com.fitareq.oldbookstore.data.model.add_book.AddBookResponse;
+import com.fitareq.oldbookstore.data.model.add_book.Category;
 import com.fitareq.oldbookstore.data.model.homepage_books.Data;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
@@ -19,6 +20,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Url;
 
 public interface ApiService {
     @POST("login")
@@ -46,9 +48,15 @@ public interface ApiService {
             @Part("description")RequestBody description,
             @Part("qty")RequestBody qty,
             @Part("price")RequestBody price,
-            @Part  MultipartBody.Part[] image
+            @Part  List<MultipartBody.Part> image
     );
 
     @GET("homepage-books")
     Call<ApiResponse<Data>>getAllBooks();
+
+    @GET("category")
+    Call<ApiResponse<List<Category>>> getAllCategory();
+
+    @GET
+    Call<ApiResponse<Item>> getBookDetails(@Url String url);
 }

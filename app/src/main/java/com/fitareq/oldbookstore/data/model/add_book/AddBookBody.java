@@ -2,18 +2,19 @@ package com.fitareq.oldbookstore.data.model.add_book;
 
 import android.net.Uri;
 
+import java.io.File;
 import java.util.List;
 
 public class AddBookBody {
     private String title;
     private String authorName;
     private String categoryId;
-    private List<Uri> image;
+    private List<File> image;
     private String description;
     private String quantity;
     private String price;
 
-    public AddBookBody(String title, String authorName, String categoryId, List<Uri> image, String description, String quantity, String price) {
+    public AddBookBody(String title, String authorName, String categoryId, List<File> image, String description, String quantity, String price) {
         this.title = title;
         this.authorName = authorName;
         this.categoryId = categoryId;
@@ -35,7 +36,7 @@ public class AddBookBody {
         return categoryId;
     }
 
-    public List<Uri> getImage() {
+    public List<File> getImage() {
         return image;
     }
 

@@ -51,6 +51,18 @@ public interface ApiService {
             @Part  List<MultipartBody.Part> image
     );
 
+    @Multipart
+    @POST("books")
+    Call<ApiResponse<String>>addPostTest(
+            @Part("title")RequestBody title,
+            @Part("author_name")RequestBody author_name,
+            @Part("category_id")RequestBody category_id,
+            @Part("description")RequestBody description,
+            @Part("qty")RequestBody qty,
+            @Part("price")RequestBody price,
+            @Part  List<MultipartBody.Part> image
+    );
+
     @GET("homepage-books")
     Call<ApiResponse<Data>>getAllBooks();
 

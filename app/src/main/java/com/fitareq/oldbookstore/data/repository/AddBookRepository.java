@@ -1,6 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -56,7 +57,7 @@ public class AddBookRepository {
         for (File file : body.getImage()) {
             RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part part = MultipartBody.Part.createFormData(
-                    "image["+i+"]",
+                    "image",
                     file.getName(),
                     imageBody
             );
@@ -64,11 +65,26 @@ public class AddBookRepository {
             ++i;
         }
 
+//        Call<ApiResponse<String>> call = apiService.addPostTest(title, authorName, categoryId, description, quantity, price, image);
 
+/*call.enqueue(new Callback<ApiResponse<String>>() {
+    @Override
+    public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
+        String res = response.body().toString();
+        Log.v("tag", res);
+    }
+
+    @Override
+    public void onFailure(Call<ApiResponse<String>> call, Throwable t) {
+
+    }
+});*/
         Call<ApiResponse<AddBookResponse>> call = apiService.addPost(title, authorName, categoryId, description, quantity, price, image);
         call.enqueue(new Callback<ApiResponse<AddBookResponse>>() {
             @Override
             public void onResponse(Call<ApiResponse<AddBookResponse>> call, Response<ApiResponse<AddBookResponse>> response) {
+
+                String res = response.toString();
                 ApiResponse<AddBookResponse> responseBody = response.body();
                 if (response.isSuccessful() && responseBody != null) {
                     if (responseBody.getStatus().equalsIgnoreCase("Success")) {

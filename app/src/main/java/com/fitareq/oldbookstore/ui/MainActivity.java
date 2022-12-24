@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.databinding.ActivityMainBinding;
+import com.fitareq.oldbookstore.utils.AppConstants;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String token = AppConstants.TOKEN;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         navController = Navigation.findNavController(MainActivity.this, R.id.main_nav_host_fragment);

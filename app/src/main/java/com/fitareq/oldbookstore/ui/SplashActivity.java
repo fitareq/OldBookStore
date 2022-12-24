@@ -10,6 +10,7 @@ import android.os.Message;
 
 import com.fitareq.oldbookstore.databinding.ActivitySplashBinding;
 import com.fitareq.oldbookstore.ui.login.LoginActivity;
+import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.PrefConstants;
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             if (isLoggedIn){
+                AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, this);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }else {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

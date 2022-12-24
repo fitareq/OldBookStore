@@ -1,5 +1,6 @@
 package com.fitareq.oldbookstore.ui.category;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +11,7 @@ import com.fitareq.oldbookstore.data.model.add_book.Category;
 import com.fitareq.oldbookstore.databinding.ItemCategoryBinding;
 import com.fitareq.oldbookstore.databinding.ItemPhotoBinding;
 import com.fitareq.oldbookstore.ui.add_book.AddBookActivity;
+import com.fitareq.oldbookstore.ui.single_category.SingleCategoryActivity;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +39,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.mViewH
 
         holder.binding.mainLayout.setOnClickListener(view ->
         {
-
+            holder.itemView.getContext().startActivity(
+                    new Intent(holder.itemView.getContext(), SingleCategoryActivity.class
+                    ).putExtra("id",categories.get(position).getId()));
         });
     }
 

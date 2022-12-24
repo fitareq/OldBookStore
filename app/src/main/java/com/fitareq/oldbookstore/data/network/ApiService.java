@@ -2,12 +2,15 @@ package com.fitareq.oldbookstore.data.network;
 
 import com.fitareq.oldbookstore.data.model.add_book.AddBookResponse;
 import com.fitareq.oldbookstore.data.model.add_book.Category;
-import com.fitareq.oldbookstore.data.model.homepage_books.Data;
+import com.fitareq.oldbookstore.data.model.book_details.CreateBookOrderBody;
+import com.fitareq.oldbookstore.data.model.book_details.CreateBookOrderResponse;
+import com.fitareq.oldbookstore.data.model.homepage_books.HomepageData;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
 import com.fitareq.oldbookstore.data.model.login.LoginResponse;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
 import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
+import com.fitareq.oldbookstore.data.model.single_category.SingleCategoryData;
 
 import java.util.List;
 
@@ -16,7 +19,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -48,7 +50,7 @@ public interface ApiService {
             @Part("description")RequestBody description,
             @Part("qty")RequestBody qty,
             @Part("price")RequestBody price,
-            @Part  List<MultipartBody.Part> image
+            @Part  MultipartBody.Part[] image
     );
 
     @Multipart
@@ -64,11 +66,17 @@ public interface ApiService {
     );
 
     @GET("homepage-books")
-    Call<ApiResponse<Data>>getAllBooks();
+    Call<ApiResponse<HomepageData>>getAllBooks();
 
     @GET("category")
     Call<ApiResponse<List<Category>>> getAllCategory();
 
     @GET
     Call<ApiResponse<Item>> getBookDetails(@Url String url);
+
+    @POST("create-order")
+    Call<ApiResponse<CreateBookOrderResponse>>createBookOrder(@Body CreateBookOrderBody body);
+
+    @GET
+    Call<ApiResponse<SingleCategoryData>> getSingleCategoryBook(@Url String url);
 }

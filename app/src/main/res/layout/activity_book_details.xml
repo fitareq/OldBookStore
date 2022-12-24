@@ -13,57 +13,115 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/book_images"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_230sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_lay" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_lay">
 
-    <TextView
-        android:id="@+id/images_count"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/transparent_back"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/images_count"
-        android:textColor="@color/white"
-        android:textSize="@dimen/item_title_text_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/book_images" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/book_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        app:layout_constraintTop_toBottomOf="@+id/book_images" />
-    <TextView
-        android:id="@+id/book_author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/author"
-        app:layout_constraintTop_toBottomOf="@+id/book_title" />
-    <TextView
-        android:id="@+id/book_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/price"
-        app:layout_constraintTop_toBottomOf="@+id/book_author" />
-    <TextView
-        android:id="@+id/book_qty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quantity"
-        app:layout_constraintTop_toBottomOf="@+id/book_price" />
-    <TextView
-        android:id="@+id/book_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title"
-        app:layout_constraintTop_toBottomOf="@+id/book_qty" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/book_images"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_230sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/images_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_back"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/images_count"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/book_images" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@+id/book_images">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:text="@string/title"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/item_title_text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/book_price"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/book_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/item_sub_title_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/book_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_margin_top"
+                    android:text="@string/author"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_sub_title_text_size" />
+
+                <TextView
+                    android:id="@+id/book_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/available_quantity"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_sub_title_text_size" />
+
+
+                <TextView
+                    android:id="@+id/book_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_margin_top"
+                    android:text="@string/description"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_sub_title_text_size"
+                    app:layout_constraintTop_toBottomOf="@+id/book_qty" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/buy_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/buy_request"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

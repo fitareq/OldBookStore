@@ -51,17 +51,16 @@ public class AddBookRepository {
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), body.getDescription());
         RequestBody quantity = RequestBody.create(MediaType.parse("text/plain"), body.getQuantity());
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), body.getPrice());
-        List<MultipartBody.Part> image = new ArrayList<>();
+        MultipartBody.Part[] image = new MultipartBody.Part[body.getImage().size()];
 
         int i = 0;
         for (File file : body.getImage()) {
             RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData(
-                    "image",
+            image[i] = MultipartBody.Part.createFormData(
+                    "image["+i+"]",
                     file.getName(),
                     imageBody
             );
-            image.add(part);
             ++i;
         }
 

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Data {
+public class HomepageData {
     @SerializedName("shop_books")
     @Expose
     private List<Item> shopBooks;
@@ -13,7 +13,7 @@ public class Data {
     @Expose
     private List<Item> otherBooks;
 
-    public Data(List<Item> shopBooks, List<Item> otherBooks) {
+    public HomepageData(List<Item> shopBooks, List<Item> otherBooks) {
         this.shopBooks = shopBooks;
         this.otherBooks = otherBooks;
     }

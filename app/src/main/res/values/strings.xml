@@ -1,42 +1,45 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Old Book Store</string>
-    <string name="email_id">Email ID</string>
-    <string name="loginBody">Login</string>
-    <string name="register">Register</string>
-    <string name="new_to_old_book_store">New to Old Book Store?</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="sign_up">Sign up</string>
-    <string name="joined_us_before">Joined us before?</string>
-    <string name="mobile">Mobile</string>
-    <string name="_continue">Continue</string>
-    <string name="sign_up_caution"><![CDATA[By signing up, you\'re agree to our Terms & Conditions and Privacy Policy]]></string>
-    <string name="password">Password</string>
-    <string name="confirm_password">Confirm password</string>
-    <string name="address">Address</string>
-    <string name="sample_title">Tomar ekta akash ache priyo</string>
-    <string name="sample_subtitle">Twelfth Night is a fast-paced romantic comedy with several interwoven plots of romance, mistaken identities and practical jokes.</string>
-    <string name="sample_date">April 29, 2022</string>
-    <string name="sample_time">10.00am</string>
-    <string name="author">Author: %1$s</string>
-    <string name="published_by">Published by: %1$s</string>
-    <string name="price">%1$s BDT</string>
-    <string name="available">Available</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title">Title</string>
-    <string name="more">More</string>
-    <string name="items_for_sale">Items For Sale</string>
-    <string name="password_length">Password must be at least 6 character</string>
-    <string name="enter_pass">Enter password</string>
-    <string name="enter_mail">Enter email</string>
-    <string name="enter_valid_mail">Enter a valid email</string>
-    <string name="enter_name">Enter name</string>
-    <string name="enter_mobile">Enter phone number</string>
-    <string name="password_didnt_match">Password didn\'t match</string>
-    <string name="enter_address">Enter address</string>
-    <string name="success">Success</string>
-    <string name="please_wait">Please Wait</string>
-    <string name="something_went_wrong">Something went wrong</string>
-    <string name="okay">Okay</string>
-    <string name="add_post">Add post</string>
-    <string name="images_count">%1$s/%2$s</string>
+    <string name="app_name" translatable="false">Old Book Store</string>
+    <string name="email_id" translatable="false">Email ID</string>
+    <string name="loginBody" translatable="false">Login</string>
+    <string name="register" translatable="false">Register</string>
+    <string name="new_to_old_book_store" translatable="false">New to Old Book Store?</string>
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
+    <string name="sign_up" translatable="false">Sign up</string>
+    <string name="joined_us_before" translatable="false">Joined us before?</string>
+    <string name="mobile" translatable="false">Mobile</string>
+    <string name="_continue" translatable="false">Continue</string>
+    <string name="sign_up_caution" translatable="false"><![CDATA[By signing up, you\'re agree to our Terms & Conditions and Privacy Policy]]></string>
+    <string name="password" translatable="false">Password</string>
+    <string name="confirm_password" translatable="false">Confirm password</string>
+    <string name="address" translatable="false">Address</string>
+    <string name="sample_title" translatable="false">Tomar ekta akash ache priyo</string>
+    <string name="sample_subtitle" translatable="false">Twelfth Night is a fast-paced romantic comedy with several interwoven plots of romance, mistaken identities and practical jokes.</string>
+    <string name="sample_date" translatable="false">April 29, 2022</string>
+    <string name="sample_time" translatable="false">10.00am</string>
+    <string name="author" translatable="false">Author: %1$s</string>
+    <string name="published_by" translatable="false">Published by: %1$s</string>
+    <string name="price" translatable="false">%1$s BDT</string>
+    <string name="available" translatable="false">Available</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="more" translatable="false">More</string>
+    <string name="items_for_sale" translatable="false">Items For Sale</string>
+    <string name="password_length" translatable="false">Password must be at least 6 character</string>
+    <string name="enter_pass" translatable="false">Enter password</string>
+    <string name="enter_mail" translatable="false">Enter email</string>
+    <string name="enter_valid_mail" translatable="false">Enter a valid email</string>
+    <string name="enter_name" translatable="false">Enter name</string>
+    <string name="enter_mobile" translatable="false">Enter phone number</string>
+    <string name="password_didnt_match" translatable="false">Password didn\'t match</string>
+    <string name="enter_address" translatable="false">Enter address</string>
+    <string name="success" translatable="false">Success</string>
+    <string name="please_wait" translatable="false">Please Wait</string>
+    <string name="something_went_wrong" translatable="false">Something went wrong</string>
+    <string name="okay" translatable="false">Okay</string>
+    <string name="add_post" translatable="false">Add post</string>
+    <string name="images_count" translatable="false">%1$s/%2$s</string>
+    <string name="available_quantity" translatable="false">Available quantity: %1$s</string>
+    <string name="description" translatable="false">Description: %1$s</string>
+    <string name="buy_request" translatable="false">Buy Request</string>
 </resources>

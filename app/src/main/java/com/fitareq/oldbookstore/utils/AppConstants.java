@@ -8,6 +8,8 @@ import java.util.Locale;
 
 public class AppConstants {
     public static final String BASE_URL = "https://oldbookstore.topnewsbd.live/api/v1/";
+    public static final String BOOK_DETAILS_ENDPOINT = BASE_URL+"books/";
+    public static final String SINGLE_CATEGORY_BOOKS_ENDPOINT = BASE_URL+"category-books/";
     public static final String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
     public static String TOKEN = "";
 

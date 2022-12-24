@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.fitareq.oldbookstore.data.model.homepage_books.Data;
+import com.fitareq.oldbookstore.data.model.homepage_books.HomepageData;
 import com.fitareq.oldbookstore.data.model.responses.RepositoryResponse;
 import com.fitareq.oldbookstore.data.repository.HomeRepository;
 
@@ -17,7 +17,7 @@ public class HomeViewModel extends AndroidViewModel {
         repository = new HomeRepository();
     }
 
-    public LiveData<RepositoryResponse<Data>> getAllBooks() {
+    public LiveData<RepositoryResponse<HomepageData>> getAllBooks() {
         return repository.getAllBooks();
     }
 }

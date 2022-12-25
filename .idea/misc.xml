@@ -4,16 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/ic_error.xml" value="0.1245" />
+        <entry key="..\:/OldBookStore/app/src/main/res/drawable/ic_outline_search_24.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/item_selector.xml" value="0.1245" />
+        <entry key="..\:/OldBookStore/app/src/main/res/drawable/rounded_back_for_search.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/rounded_imageview_back.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/transparent_back.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_add_post.xml" value="0.2" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_book_details.xml" value="0.21" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_home.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_main.xml" value="0.1675929884566054" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_profile_setup.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_registration.xml" value="0.21" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_search.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_single_category.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_splash.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/dialog_quantity.xml" value="0.25" />

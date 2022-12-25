@@ -22,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface ApiService {
@@ -79,4 +80,7 @@ public interface ApiService {
 
     @GET
     Call<ApiResponse<SingleCategoryData>> getSingleCategoryBook(@Url String url);
+
+    @GET("search-book/")
+    Call<ApiResponse<List<Item>>> getSearchedProduct(@Query("q") String query);
 }

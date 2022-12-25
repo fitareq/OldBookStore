@@ -19,6 +19,7 @@ import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.databinding.FragmentHomeBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.add_book.AddBookActivity;
+import com.fitareq.oldbookstore.ui.search.SearchActivity;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 
 import java.util.ArrayList;
@@ -54,8 +55,9 @@ public class HomeFragment extends Fragment {
         binding.oldBookStoreItems.more.setOnClickListener(view -> {
 
         });
-        binding.addPostFab.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), AddBookActivity.class));
+
+        binding.searchFab.setOnClickListener(view -> {
+            startActivity(new Intent(requireActivity(), SearchActivity.class));
         });
 
         return binding.getRoot();

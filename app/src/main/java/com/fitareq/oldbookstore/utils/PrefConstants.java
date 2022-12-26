@@ -18,6 +18,12 @@ public class PrefConstants {
         editor.apply();
     }
 
+    public static void removeTokenFromSharedPref(Context context){
+        if (editor == null)
+            editor = context.getSharedPreferences(MY_PREF_NAME, Context.MODE_PRIVATE).edit();
+        editor.remove(PrefConstants.KEY_ACCESS_TOKEN).apply();
+    }
+
     public static String getStringFromSharedPref(String key, Context context) {
         if (prefs == null)
             prefs = context.getSharedPreferences(MY_PREF_NAME, Context.MODE_PRIVATE);

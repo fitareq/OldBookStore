@@ -8,6 +8,7 @@ import com.fitareq.oldbookstore.data.model.homepage_books.HomepageData;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
 import com.fitareq.oldbookstore.data.model.login.LoginResponse;
+import com.fitareq.oldbookstore.data.model.profile.UserProfileData;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
 import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
 import com.fitareq.oldbookstore.data.model.single_category.SingleCategoryData;
@@ -83,4 +84,7 @@ public interface ApiService {
 
     @GET("search-book/")
     Call<ApiResponse<List<Item>>> getSearchedProduct(@Query("q") String query);
+
+    @GET("me")
+    Call<ApiResponse<UserProfileData>> getUserProfile();
 }

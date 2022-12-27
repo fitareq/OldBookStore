@@ -8,6 +8,9 @@ import com.fitareq.oldbookstore.data.model.homepage_books.HomepageData;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
 import com.fitareq.oldbookstore.data.model.login.LoginResponse;
+import com.fitareq.oldbookstore.data.model.order.AcceptOrderResponse;
+import com.fitareq.oldbookstore.data.model.order.buy_orders.BuyOrderResponse;
+import com.fitareq.oldbookstore.data.model.order.sell_orders.SellOrderResponse;
 import com.fitareq.oldbookstore.data.model.profile.UserProfileData;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationResponse;
 import com.fitareq.oldbookstore.data.model.responses.ApiResponse;
@@ -87,4 +90,13 @@ public interface ApiService {
 
     @GET("me")
     Call<ApiResponse<UserProfileData>> getUserProfile();
+
+    @GET()
+    Call<ApiResponse<AcceptOrderResponse>> acceptOrder(@Url String url);
+
+    @GET("user-all-buy-orders")
+    Call<ApiResponse<List<BuyOrderResponse>>> buyOrderInfo();
+
+    @GET("user-all-sell-orders")
+    Call<ApiResponse<List<SellOrderResponse>>> sellOrderInfo();
 }

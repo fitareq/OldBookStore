@@ -42,4 +42,9 @@
     <string name="available_quantity" translatable="false">Available quantity: %1$s</string>
     <string name="description" translatable="false">Description: %1$s</string>
     <string name="buy_request" translatable="false">Buy Request</string>
+    <string name="requested_quantity" translatable="false">Requested Quantity: %1$s</string>
+    <string name="total_payable" translatable="false">Total Payable: %1$s</string>
+    <string name="seller_name" translatable="false">Name: %1$s</string>
+    <string name="phone" translatable="false">Phone: %1$s</string>
+    <string name="seller_address" translatable="false">Address: %1$s</string>
 </resources>

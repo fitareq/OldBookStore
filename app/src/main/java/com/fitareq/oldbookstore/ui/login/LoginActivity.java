@@ -16,6 +16,7 @@ import com.fitareq.oldbookstore.data.repository.LoginRepository;
 import com.fitareq.oldbookstore.databinding.ActivityLoginBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.registration.RegistrationActivity;
+import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
 
@@ -68,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         dialog.success();
                         PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, loginResponse.getData().getAccessToken(), LoginActivity.this);
                         PrefConstants.setUserLoggedIn(LoginActivity.this, true);
+                        AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, this);
                         binding.loginBtn.setEnabled(true);
                         dialog.success();
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

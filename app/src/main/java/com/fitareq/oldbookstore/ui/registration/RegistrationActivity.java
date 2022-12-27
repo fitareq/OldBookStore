@@ -184,6 +184,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 case SUCCESS:
                     PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, registrationResponse.getData().getAccessToken(), RegistrationActivity.this);
                     PrefConstants.setUserLoggedIn(RegistrationActivity.this, true);
+                    AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, this);
                     dialog.success();
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override

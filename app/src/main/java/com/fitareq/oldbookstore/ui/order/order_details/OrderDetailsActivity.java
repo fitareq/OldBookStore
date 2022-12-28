@@ -6,16 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
 import com.fitareq.oldbookstore.databinding.ActivityOrderDetailsBinding;
+import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 
-public class OrderDetailsActivity extends AppCompatActivity implements SellAdapter.CallBack{
+public class OrderDetailsActivity extends AppCompatActivity implements SellAdapter.CallBack, BuyAdapter.CallBack{
 
     private ActivityOrderDetailsBinding binding;
     private OrderViewModel viewModel;
@@ -29,7 +31,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
 
         setSupportActionBar(binding.toolbarLay.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Orders");
+//        getSupportActionBar().setTitle("Orders");
         binding.toolbarLay.toolbar.getNavigationIcon().setTint(Color.parseColor("#ffffff"));
 
         orderType = getIntent().getStringExtra(AppConstants.KEY_ORDER_TYPE);
@@ -38,9 +40,11 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
 
         switch (orderType){
             case AppConstants.VALUE_ORDER_TYPE_BUY:
+                getSupportActionBar().setTitle("Buy orders");
                 setupBuyOrder();
                 break;
             case AppConstants.VALUE_ORDER_TYPE_SELL:
+                getSupportActionBar().setTitle("Sell orders");
                 setupSellOrder();
                 break;
         }
@@ -61,12 +65,18 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
                     dialog.loading();
                     break;
                 case SUCCESS:
-                    binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
-                    binding.ordersRv.setAdapter(new SellAdapter(sellOrderInfo.getData(), this));
+                    if (sellOrderInfo.getData() != null && !sellOrderInfo.getData().isEmpty()){
+                        binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
+                        binding.ordersRv.setAdapter(new SellAdapter(sellOrderInfo.getData(), this));
+
+                    }else {
+                        showNothingFound();
+                    }
                     dialog.dismissDialog();
                     break;
                 case FAILED:
                     dialog.error("Failed to load data");
+                    showNothingFound();
                     break;
             }
         });
@@ -79,12 +89,18 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
                     dialog.loading();
                     break;
                 case SUCCESS:
-                    binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
-                    binding.ordersRv.setAdapter(new BuyAdapter(buyOrderInfo.getData()));
+                    if (buyOrderInfo.getData() != null && !buyOrderInfo.getData().isEmpty()){
+                        binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
+                        binding.ordersRv.setAdapter(new BuyAdapter(buyOrderInfo.getData(), this));
+
+                    }else {
+                        showNothingFound();
+                    }
                     dialog.dismissDialog();
                     break;
                 case FAILED:
                     dialog.error("Failed to load data");
+                    showNothingFound();
                     break;
             }
         });
@@ -115,9 +131,23 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
                     },1000);
                     break;
                 case FAILED:
-                    dialog.error("Something went wrong");
+                    dialog.error("Couldn't accept order. Please try again.");
                     break;
             }
         });
     }
+
+    private void showNothingFound(){
+        binding.ordersRv.setVisibility(View.GONE);
+        binding.nothingFoundLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void openDialer(String phone) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + phone));
+        startActivity(callIntent);
+    }
+
 }

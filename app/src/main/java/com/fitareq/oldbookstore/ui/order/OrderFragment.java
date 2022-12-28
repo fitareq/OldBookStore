@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.databinding.FragmentOrderBinding;
+import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.order.order_details.OrderDetailsActivity;
 import com.fitareq.oldbookstore.utils.AppConstants;
 
@@ -43,5 +44,10 @@ public class OrderFragment extends Fragment {
                     .putExtra(AppConstants.KEY_ORDER_TYPE, AppConstants.VALUE_ORDER_TYPE_SELL));
         });
         return binding.getRoot();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).updateTitle("Orders");
     }
 }

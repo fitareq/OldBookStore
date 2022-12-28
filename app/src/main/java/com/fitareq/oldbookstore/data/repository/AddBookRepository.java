@@ -1,5 +1,6 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
 
@@ -33,8 +34,8 @@ public class AddBookRepository {
     private MutableLiveData<RepositoryResponse<List<Category>>> _categories;
     private LiveData<RepositoryResponse<List<Category>>> categories;
 
-    public AddBookRepository() {
-        apiService = Api.getInstance().getApiService();
+    public AddBookRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _addBookResponse = new MutableLiveData<>();
         addBookResponse = _addBookResponse;
         _categories = new MutableLiveData<>();

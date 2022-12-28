@@ -16,7 +16,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     private RegistrationRepository repository;
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
-        repository = new RegistrationRepository();
+        repository = new RegistrationRepository(application);
     }
 
     public LiveData<RepositoryResponse<RegistrationResponse>> registerUser(RegistrationBody registrationBody){

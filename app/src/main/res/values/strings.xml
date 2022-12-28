@@ -40,7 +40,7 @@
     <string name="add_post" translatable="false">Add post</string>
     <string name="images_count" translatable="false">%1$s/%2$s</string>
     <string name="available_quantity" translatable="false">Available quantity: %1$s</string>
-    <string name="description" translatable="false">Description: %1$s</string>
+    <string name="description" translatable="false">%1$s</string>
     <string name="buy_request" translatable="false">Buy Request</string>
     <string name="requested_quantity" translatable="false">Requested Quantity: %1$s</string>
     <string name="total_payable" translatable="false">Total Payable: %1$s</string>

@@ -131,10 +131,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/description_et"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:imeOptions="actionDone"
-                    android:inputType="text" />
+                    android:minLines="7"
+                    android:nestedScrollingEnabled="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <View

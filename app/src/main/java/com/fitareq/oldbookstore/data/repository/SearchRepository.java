@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -22,8 +24,8 @@ public class SearchRepository {
     private MutableLiveData<RepositoryResponse<List<Item>>> _searchedData;
     private LiveData<RepositoryResponse<List<Item>>> searchedData;
 
-    public SearchRepository() {
-        apiService = Api.getInstance().getApiService();
+    public SearchRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _searchedData = new MutableLiveData<>();
         searchedData = _searchedData;
     }

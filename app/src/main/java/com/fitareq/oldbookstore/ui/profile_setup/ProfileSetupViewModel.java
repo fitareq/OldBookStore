@@ -11,6 +11,6 @@ public class ProfileSetupViewModel extends AndroidViewModel {
     private ProfileSetupRepository repository;
     public ProfileSetupViewModel(@NonNull Application application) {
         super(application);
-        repository = new ProfileSetupRepository();
+        repository = new ProfileSetupRepository(application);
     }
 }

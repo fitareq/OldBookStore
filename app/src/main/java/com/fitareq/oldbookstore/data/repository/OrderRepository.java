@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -29,8 +31,8 @@ public class OrderRepository {
     private MutableLiveData<RepositoryResponse<AcceptOrderResponse>> _acceptOrderResponse;
     private LiveData<RepositoryResponse<AcceptOrderResponse>> acceptOrderResponse;
 
-    public OrderRepository() {
-        apiService = Api.getInstance().getApiService();
+    public OrderRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _sellOrderResponse = new MutableLiveData<>();
         sellOrderResponse = _sellOrderResponse;
 

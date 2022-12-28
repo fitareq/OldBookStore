@@ -17,7 +17,7 @@ public class ProfileViewModel extends AndroidViewModel {
     private ProfileRepository repository;
     public ProfileViewModel(@NonNull Application application) {
         super(application);
-        repository = new ProfileRepository();
+        repository = new ProfileRepository(application);
     }
 
     public LiveData<RepositoryResponse<UserProfileData>> getUserProfileInfo(){

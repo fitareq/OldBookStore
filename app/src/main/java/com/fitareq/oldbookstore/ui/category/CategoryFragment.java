@@ -51,12 +51,17 @@ public class CategoryFragment extends Fragment {
                         dialog.loading();
                         break;
                     case SUCCESS:
-                        binding.categoryRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
-                        binding.categoryRv.setAdapter(new CategoryAdapter(categories.getData()));
+                        if (categories.getData() != null && !categories.getData().isEmpty()) {
+                            binding.categoryRv.setLayoutManager(new LinearLayoutManager(requireActivity()));
+                            binding.categoryRv.setAdapter(new CategoryAdapter(categories.getData()));
+                        }else {
+                            showNothingFound();
+                        }
                         dialog.dismissDialog();
                         break;
                     case FAILED:
                         dialog.error("Something went wrong!!");
+                        showNothingFound();
                         break;
                 }
             }
@@ -69,5 +74,10 @@ public class CategoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) requireActivity()).updateTitle("Categories");
+    }
+
+    private void showNothingFound() {
+        binding.categoryRv.setVisibility(View.GONE);
+        binding.nothingFoundLayout.setVisibility(View.VISIBLE);
     }
 }

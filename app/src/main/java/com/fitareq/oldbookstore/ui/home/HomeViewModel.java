@@ -14,7 +14,7 @@ public class HomeViewModel extends AndroidViewModel {
     private HomeRepository repository;
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        repository = new HomeRepository();
+        repository = new HomeRepository(application);
     }
 
     public LiveData<RepositoryResponse<HomepageData>> getAllBooks() {

@@ -62,12 +62,18 @@ public class SearchActivity extends AppCompatActivity {
                         dialog.loading();
                         break;
                     case SUCCESS:
-                        binding.searchProduct.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
-                        binding.searchProduct.setAdapter(new ItemsAdapter(searchedData.getData()));
+                        if (searchedData.getData() != null && !searchedData.getData().isEmpty()) {
+                            binding.searchProduct.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
+                            binding.searchProduct.setAdapter(new ItemsAdapter(searchedData.getData()));
+                            showNothingFound(View.VISIBLE, View.GONE);
+                        }else {
+                            showNothingFound(View.GONE, View.VISIBLE);
+                        }
                         dialog.dismissDialog();
                         break;
                     case FAILED:
                         dialog.error("Error in loading data!!");
+                        showNothingFound(View.GONE, View.VISIBLE);
                         break;
                 }
             }
@@ -80,5 +86,10 @@ public class SearchActivity extends AppCompatActivity {
             InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void showNothingFound(int recyclerViewVisibility, int nothingFoundViewVisibility) {
+        binding.searchProduct.setVisibility(recyclerViewVisibility);
+        binding.nothingFoundLayout.setVisibility(nothingFoundViewVisibility);
     }
 }

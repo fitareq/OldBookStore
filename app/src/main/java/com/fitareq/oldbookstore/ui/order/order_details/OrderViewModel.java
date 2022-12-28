@@ -20,7 +20,7 @@ public class OrderViewModel extends AndroidViewModel {
     private OrderRepository repository;
     public OrderViewModel(@NonNull Application application) {
         super(application);
-        repository = new OrderRepository();
+        repository = new OrderRepository(application);
     }
 
     public LiveData<RepositoryResponse<List<BuyOrderResponse>>> getUserBuyOrderInfo(){

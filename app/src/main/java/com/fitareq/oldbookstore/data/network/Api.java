@@ -1,6 +1,9 @@
 package com.fitareq.oldbookstore.data.network;
 
+import android.content.Context;
+
 import com.fitareq.oldbookstore.utils.AppConstants;
+import com.fitareq.oldbookstore.utils.PrefConstants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,9 +17,10 @@ public class Api {
     private static Api instance = null;
     private final Retrofit retrofit;
 
-    private OkHttpClient httpClient() {
+    private OkHttpClient httpClient(Context context) {
         Interceptor interceptor = chain -> {
 
+            AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, context);
             String token = "Bearer " + AppConstants.TOKEN;
             Request request = chain.request().newBuilder()
                     .header("Authorization", token)
@@ -31,17 +35,17 @@ public class Api {
                 .build();
     }
 
-    private Api() {
+    private Api(Context context) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient())
+                .client(httpClient(context))
                 .build();
     }
 
-    public static Api getInstance() {
+    public static Api getInstance(Context context) {
         if (instance == null)
-            instance = new Api();
+            instance = new Api(context);
         return instance;
     }
 

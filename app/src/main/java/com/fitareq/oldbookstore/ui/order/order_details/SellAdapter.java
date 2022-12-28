@@ -67,14 +67,14 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ItemsViewHolde
 
         if (status.equals("0")) {
             holder.binding.phoneLayout.setVisibility(View.GONE);
+            holder.binding.acceptBtn.setVisibility(View.VISIBLE);
         } else {
 
             String sellerPhone = buyerInfo.getPhone();
-
-
             holder.binding.buyerPhone.setText(context.getString(R.string.phone, sellerPhone));
 
             holder.binding.sellerInfoLayout.setVisibility(View.VISIBLE);
+            holder.binding.acceptBtn.setVisibility(View.GONE);
         }
 
         holder.binding.title.setText(title);
@@ -88,9 +88,7 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ItemsViewHolde
 
         holder.binding.acceptBtn.setOnClickListener(view -> callBack.acceptOrder(String.valueOf(orderInfo.getId())));
         holder.binding.callBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:" +buyerInfo.getPhone()));
-            context.startActivity(intent);
+            callBack.openDialer(buyerInfo.getPhone());
         });
     }
 
@@ -110,5 +108,6 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ItemsViewHolde
 
     public interface CallBack{
         void acceptOrder(String id);
+        void openDialer(String phone);
     }
 }

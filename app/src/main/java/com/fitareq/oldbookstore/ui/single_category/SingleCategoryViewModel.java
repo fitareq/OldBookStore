@@ -17,7 +17,7 @@ public class SingleCategoryViewModel extends AndroidViewModel {
     private SingleCategoryRepository repository;
     public SingleCategoryViewModel(@NonNull Application application) {
         super(application);
-        repository = new SingleCategoryRepository();
+        repository = new SingleCategoryRepository(application);
     }
 
     public LiveData<RepositoryResponse<SingleCategoryData>> getCategoryBooks(String url) {

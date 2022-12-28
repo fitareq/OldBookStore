@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,8 +22,8 @@ public class LoginRepository {
     private MutableLiveData<RepositoryResponse<LoginResponse>> _loginResponse;
     private LiveData<RepositoryResponse<LoginResponse>> loginResponse;
 
-    public LoginRepository() {
-        apiService = Api.getInstance().getApiService();
+    public LoginRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _loginResponse = new MutableLiveData<>();
         loginResponse = _loginResponse;
     }

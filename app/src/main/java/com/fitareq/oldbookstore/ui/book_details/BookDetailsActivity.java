@@ -123,9 +123,9 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         CreateBookOrderBody body = new CreateBookOrderBody(bookId, qty);
 
-        viewModel.createOrder(body).observe(this, orderResponse->{
-            if (orderResponse != null){
-                switch (orderResponse.getStatus()){
+        viewModel.createOrder(body).observe(this, orderResponse -> {
+            if (orderResponse != null) {
+                switch (orderResponse.getStatus()) {
                     case LOADING:
                         dialog.loading();
                         break;
@@ -142,7 +142,11 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     private void setupBookDetails(Item data) {
-        setupBookImages(data.getImages());
+        if (data.getImages() != null && !data.getImages().isEmpty()) {
+            setupBookImages(data.getImages());
+        } else {
+            binding.imagesCount.setText(getString(R.string.images_count, "0", "0"));
+        }
         binding.bookTitle.setText(data.getTitle());
         binding.bookAuthor.setText(getString(R.string.author, data.getAuthorName()));
         binding.bookPrice.setText(getString(R.string.price, data.getPrice()));

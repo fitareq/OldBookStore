@@ -16,7 +16,7 @@ public class BookDetailsViewModel extends AndroidViewModel {
     private BookDetailsRepository repository;
     public BookDetailsViewModel(@NonNull Application application) {
         super(application);
-        repository = new BookDetailsRepository();
+        repository = new BookDetailsRepository(application);
     }
 
     public LiveData<RepositoryResponse<Item>> getBookDetails(String url){

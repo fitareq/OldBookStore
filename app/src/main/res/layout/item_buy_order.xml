@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/_3sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    app:cardCornerRadius="@dimen/_5sdp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="@dimen/_5sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@drawable/rounded_back_for_search"
         android:layout_height="wrap_content"
         android:padding="@dimen/_10sdp">
 
@@ -17,7 +18,7 @@
             android:id="@+id/item_image"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="0dp"
-            android:src="@drawable/add_image"
+            android:src="@drawable/placeholder"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
@@ -51,7 +52,7 @@
                 android:maxLines="1"
                 android:text="@string/price"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -86,35 +87,39 @@
             android:id="@+id/seller_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey"/>
+                android:background="@color/grey" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_3sdp"
                 android:text="Seller information"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:padding="@dimen/_3sdp"
-                android:gravity="center"
-                android:textSize="@dimen/_14ssp" />
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey"/>
+                android:background="@color/grey" />
+
             <TextView
                 android:id="@+id/seller_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/seller_name"
-                android:textSize="@dimen/_14ssp"
-                android:layout_marginTop="@dimen/_5sdp"/>
+                android:textSize="@dimen/_14ssp" />
 
             <TextView
                 android:id="@+id/seller_address"
@@ -128,23 +133,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/seller_phone"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/phone"
                     android:textSize="@dimen/_14ssp" />
-                <Button
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/call_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Call"/>
+                    android:src="@drawable/ic_call"
+                    app:backgroundTint="@color/primary"
+                    app:fabSize="mini"
+                    app:tint="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

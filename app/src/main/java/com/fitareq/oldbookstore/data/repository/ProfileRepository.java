@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -26,8 +28,8 @@ public class ProfileRepository {
     private MutableLiveData<RepositoryResponse<String>> _logoutResponse;
     private LiveData<RepositoryResponse<String>> logoutResponse;
 
-    public ProfileRepository() {
-        apiService = Api.getInstance().getApiService();
+    public ProfileRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _userProfileResponse = new MutableLiveData<>();
         userProfileResponse = _userProfileResponse;
 

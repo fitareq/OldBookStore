@@ -18,7 +18,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        repository = new LoginRepository();
+        repository = new LoginRepository(application);
     }
 
     public LiveData<RepositoryResponse<LoginResponse>> userLogin(LoginBody body) {

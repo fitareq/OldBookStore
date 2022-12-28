@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,8 +20,8 @@ public class HomeRepository {
     private MutableLiveData<RepositoryResponse<HomepageData>> _allBooks;
     private LiveData<RepositoryResponse<HomepageData>> allBooks;
 
-    public HomeRepository() {
-        apiService = Api.getInstance().getApiService();
+    public HomeRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _allBooks = new MutableLiveData<>();
         allBooks = _allBooks;
     }

@@ -1,5 +1,7 @@
 package com.fitareq.oldbookstore.data.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -22,8 +24,8 @@ public class SingleCategoryRepository {
     private MutableLiveData<RepositoryResponse<SingleCategoryData>> _categoryData;
     private LiveData<RepositoryResponse<SingleCategoryData>> categoryData;
 
-    public SingleCategoryRepository() {
-        apiService = Api.getInstance().getApiService();
+    public SingleCategoryRepository(Application application) {
+        apiService = Api.getInstance(application).getApiService();
         _categoryData = new MutableLiveData<>();
         categoryData = _categoryData;
     }

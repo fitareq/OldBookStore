@@ -19,7 +19,7 @@ public class SearchViewModel extends AndroidViewModel {
     private SearchRepository repository;
     public SearchViewModel(@NonNull Application application) {
         super(application);
-        repository = new SearchRepository();
+        repository = new SearchRepository(application);
     }
 
     public LiveData<RepositoryResponse<List<Item>>> getSearchedProduct(String query)  {

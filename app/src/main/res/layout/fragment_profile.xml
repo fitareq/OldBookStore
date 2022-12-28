@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.category.CategoryFragment">
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="@dimen/_150sdp"
@@ -31,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
-        android:text="Forhadul Islam"
         android:textSize="@dimen/_22ssp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
@@ -42,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
-        android:text="test@gmail.com"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
@@ -52,7 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="+8801777888999"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/user_email" />
@@ -151,5 +151,19 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/nothing_found_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/nothing_found" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

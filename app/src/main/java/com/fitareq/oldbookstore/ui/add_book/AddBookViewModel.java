@@ -20,7 +20,7 @@ public class AddBookViewModel extends AndroidViewModel {
 
     public AddBookViewModel(@NonNull Application application) {
         super(application);
-        repository = new AddBookRepository();
+        repository = new AddBookRepository(application);
     }
 
     public LiveData<RepositoryResponse<AddBookResponse>> addBook(AddBookBody body){

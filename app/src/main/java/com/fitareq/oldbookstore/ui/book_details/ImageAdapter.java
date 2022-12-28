@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.databinding.ItemBookDetailsImageBinding;
 import com.fitareq.oldbookstore.databinding.ItemCategoryBinding;
 import com.squareup.picasso.MemoryPolicy;

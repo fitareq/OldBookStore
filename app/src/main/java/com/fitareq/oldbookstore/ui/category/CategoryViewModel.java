@@ -17,7 +17,7 @@ public class CategoryViewModel extends AndroidViewModel {
     private CategoryRepository repository;
     public CategoryViewModel(@NonNull Application application) {
         super(application);
-        repository = new CategoryRepository();
+        repository = new CategoryRepository(application);
     }
 
     public LiveData<RepositoryResponse<List<Category>>> getCategories() {

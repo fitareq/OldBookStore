@@ -26,9 +26,11 @@ import java.util.List;
 public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ItemsViewHolder> {
 
     private List<BuyOrderResponse> items;
+    private CallBack callBack;
 
-    public BuyAdapter(List<BuyOrderResponse> items) {
+    public BuyAdapter(List<BuyOrderResponse> items, CallBack callBack) {
         this.items = items;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -50,7 +52,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ItemsViewHolder>
         String author = bookInfo.getAuthorName();
         String requestedQty = orderInfo.getQty();
         String price = bookInfo.getPrice();
-        String totalPayable = String.valueOf(Integer.parseInt(requestedQty) * Integer.parseInt(price));
+        String totalPayable = String.valueOf(Integer.parseInt(requestedQty) * Double.parseDouble(price));
         String status = orderInfo.getIsAccepted();
 
         if (image != null){
@@ -81,9 +83,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ItemsViewHolder>
         holder.binding.price.setText(context.getString(R.string.price, price));
         holder.binding.totalPayable.setText(context.getString(R.string.total_payable, totalPayable));
         holder.binding.callBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:" +sellerInfo.getPhone()));
-            context.startActivity(intent);
+            callBack.openDialer(sellerInfo.getPhone());
         });
     }
 
@@ -99,5 +99,9 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ItemsViewHolder>
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public interface CallBack{
+        void openDialer(String phone);
     }
 }

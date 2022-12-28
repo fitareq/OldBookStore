@@ -10,7 +10,7 @@
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/rounded_imageview_back.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/drawable/transparent_back.xml" value="0.1245" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_add_post.xml" value="0.2" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_book_details.xml" value="0.21" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_book_details.xml" value="0.164967562557924" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_home.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_main.xml" value="0.18" />
@@ -23,18 +23,19 @@
         <entry key="..\:/OldBookStore/app/src/main/res/layout/dialog_quantity.xml" value="0.25" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/error_layout.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_add_post.xml" value="0.1675929884566054" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_category.xml" value="0.1675929884566054" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_category.xml" value="0.1" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_home.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_order.xml" value="0.21" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/fragment_profile.xml" value="0.164967562557924" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/item_book_details_image.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/item_buy_order.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/item_card.xml" value="0.33" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/item_category.xml" value="0.25" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/item_photo.xml" value="0.1675929884566054" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/item_sell_order.xml" value="0.25" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/item_sell_order.xml" value="0.18" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/items_layout.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/loading_layout.xml" value="0.17192982456140352" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/nothing_found.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/success_layout.xml" value="0.164967562557924" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/toolbar.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/menu/nav_menu.xml" value="0.17192982456140352" />

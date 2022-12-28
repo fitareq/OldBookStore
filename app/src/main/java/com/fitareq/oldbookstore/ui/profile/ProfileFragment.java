@@ -1,6 +1,7 @@
 package com.fitareq.oldbookstore.ui.profile;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.profile.UserProfileData;
 import com.fitareq.oldbookstore.databinding.FragmentProfileBinding;
+import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.login.LoginActivity;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
@@ -57,11 +59,18 @@ public class ProfileFragment extends Fragment {
                         dialog.loading();
                         break;
                     case SUCCESS:
-                        setUserInfo(userInfo.getData());
+                        UserProfileData data = userInfo.getData();
+                        if (data != null)
+                        {
+                            setUserInfo(userInfo.getData());
+                        }else {
+                            showNothingFound();
+                        }
                         dialog.dismissDialog();
                         break;
                     case FAILED:
                         dialog.error("Couldn't load user information");
+                        showNothingFound();
                         break;
                 }
             }
@@ -69,6 +78,11 @@ public class ProfileFragment extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    private void showNothingFound() {
+        binding.mainContainer.setVisibility(View.GONE);
+        binding.nothingFoundLayout.setVisibility(View.VISIBLE);
     }
 
     private void setUserInfo(UserProfileData data) {
@@ -103,7 +117,8 @@ public class ProfileFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         binding.userOrder.setOnClickListener(view1 -> {
-            navController.navigate(R.id.orderFragment);
+            //navController.navigate(R.id.orderFragment);
+            ((MainActivity) requireActivity()).selectOrder();
         });
         binding.userLogout.setOnClickListener(view1 -> {
             PrefConstants.removeTokenFromSharedPref(requireActivity());
@@ -111,5 +126,24 @@ public class ProfileFragment extends Fragment {
             startActivity(new Intent(requireActivity(), LoginActivity.class));
             requireActivity().finish();
         });
+        binding.privacyPolicy.setOnClickListener(view1 -> {
+            showData();
+        });
+        binding.aboutUs.setOnClickListener(view1 -> {
+            showData();
+        });
+        binding.faq.setOnClickListener(view1 -> {
+            showData();
+        });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) requireActivity()).updateTitle("User Profile");
+    }
+
+    private void showData(){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/live/4676ca0a-3ce3-4ac6-87b3-c12c8e9e39f2"));
+        startActivity(browserIntent);
     }
 }

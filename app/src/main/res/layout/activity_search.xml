@@ -38,7 +38,6 @@
             android:selectAllOnFocus="true"
             android:singleLine="true" />
     </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_product"
         android:layout_width="match_parent"
@@ -47,4 +46,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:layout_editor_absoluteX="6dp" />
+
+    <LinearLayout
+        android:id="@+id/nothing_found_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/nothing_found" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

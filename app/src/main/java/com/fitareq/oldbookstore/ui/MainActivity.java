@@ -60,4 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateTitle(String title) {
         binding.toolbar.setTitle(title);
     }
+    public void selectOrder(){
+        binding.bottomNavigationView.setSelectedItemId(R.id.nav_order);
+    }
 }

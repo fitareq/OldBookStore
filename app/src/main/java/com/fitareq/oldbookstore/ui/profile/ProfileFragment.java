@@ -20,6 +20,7 @@ import com.fitareq.oldbookstore.data.model.profile.UserProfileData;
 import com.fitareq.oldbookstore.databinding.FragmentProfileBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.login.LoginActivity;
+import com.fitareq.oldbookstore.ui.my_books.MyBooksViewModel;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
 import com.squareup.picasso.Picasso;
@@ -30,6 +31,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel viewModel;
     private CustomDialog dialog;
     private NavController navController;
+    private int userId = -1;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -62,7 +64,8 @@ public class ProfileFragment extends Fragment {
                         UserProfileData data = userInfo.getData();
                         if (data != null)
                         {
-                            setUserInfo(userInfo.getData());
+                            setUserInfo(data);
+                            userId = data.getId();
                         }else {
                             showNothingFound();
                         }
@@ -135,6 +138,11 @@ public class ProfileFragment extends Fragment {
         binding.faq.setOnClickListener(view1 -> {
             showData();
         });
+        binding.userOrder.setOnClickListener(view1 -> {
+            startActivity(new Intent(requireActivity(), MyBooksViewModel.class)
+                    .putExtra("id", String.valueOf(userId)));
+        });
+
     }
     @Override
     public void onResume() {

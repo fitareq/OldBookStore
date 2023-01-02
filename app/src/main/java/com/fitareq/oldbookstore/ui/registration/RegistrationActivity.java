@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.location.Address;
 import android.location.Geocoder;
@@ -22,6 +23,7 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 
 import com.fitareq.oldbookstore.R;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
@@ -63,9 +65,16 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //askForPermission();
 
+
+
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         dialog = new CustomDialog(this);
         binding.registerIllustrator.setClipToOutline(true);
+
+        setSupportActionBar(binding.toolbarLay.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Registration");
+        binding.toolbarLay.toolbar.getNavigationIcon().setTint(Color.parseColor("#ffffff"));
 
         binding.continueBtn.setOnClickListener(view -> {
             registerUser();
@@ -75,6 +84,13 @@ public class RegistrationActivity extends AppCompatActivity {
         });
         binding.registerIllustrator.setOnClickListener(view -> {
             selectImage();
+        });
+
+        binding.toolbarLay.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
         });
     }
 
@@ -140,6 +156,12 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = binding.passwordEt.getText().toString();
         String confirmPassword = binding.confirmPasswordEt.getText().toString();
         String address = binding.addressEt.getText().toString();
+        binding.emailIdLayout.setError(null);
+        binding.fullNameLayout.setError(null);
+        binding.mobileLayout.setError(null);
+        binding.passwordLayout.setError(null);
+        binding.confirmPasswordLayout.setError(null);
+        binding.addressLayout.setError(null);
 
         if (TextUtils.isEmpty(email)) {
             binding.emailIdLayout.setError(getString(R.string.enter_mail));
@@ -162,15 +184,19 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
         if (password.length() < 6) {
-            binding.emailIdLayout.setError(getString(R.string.password_length));
+            binding.passwordLayout.setError(getString(R.string.password_length));
             return;
         }
         if (!password.equals(confirmPassword)) {
-            binding.emailIdLayout.setError(getString(R.string.password_didnt_match));
+            binding.confirmPasswordLayout.setError(getString(R.string.password_didnt_match));
             return;
         }
         if (TextUtils.isEmpty(address)) {
-            binding.emailIdLayout.setError(getString(R.string.enter_address));
+            binding.addressLayout.setError(getString(R.string.enter_address));
+            return;
+        }
+        if (file == null){
+            dialog.error("Please select a profile image.");
             return;
         }
         dialog.loading();

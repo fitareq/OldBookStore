@@ -9,6 +9,7 @@ public class PrefConstants {
     private static SharedPreferences prefs = null;
 
     public static final String KEY_ACCESS_TOKEN = "ACCESS_TOKEN";
+    public static final String KEY_USER_ID = "USER_ID";
 
 
     public static void saveStringToSharedPref(String key,String value, Context context) {

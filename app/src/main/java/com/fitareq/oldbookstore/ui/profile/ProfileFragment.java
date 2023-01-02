@@ -20,6 +20,7 @@ import com.fitareq.oldbookstore.data.model.profile.UserProfileData;
 import com.fitareq.oldbookstore.databinding.FragmentProfileBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.ui.login.LoginActivity;
+import com.fitareq.oldbookstore.ui.my_books.MyBooksActivity;
 import com.fitareq.oldbookstore.ui.my_books.MyBooksViewModel;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
@@ -138,8 +139,8 @@ public class ProfileFragment extends Fragment {
         binding.faq.setOnClickListener(view1 -> {
             showData();
         });
-        binding.userOrder.setOnClickListener(view1 -> {
-            startActivity(new Intent(requireActivity(), MyBooksViewModel.class)
+        binding.userBooks.setOnClickListener(view1 -> {
+            startActivity(new Intent(requireActivity(), MyBooksActivity.class)
                     .putExtra("id", String.valueOf(userId)));
         });
 

@@ -45,51 +45,56 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ItemsViewHolde
         Item bookInfo = item.getBookInfo();
         BuyerInfo buyerInfo = item.getBuyerInfo();
         OrderInfo orderInfo = item.getOrderInfo();
+        if (bookInfo != null && buyerInfo != null && orderInfo != null) {
+            String image = bookInfo.getImage1();
+            String title = bookInfo.getTitle();
+            String author = bookInfo.getAuthorName();
+            String requestedQty = orderInfo.getQty();
+            String price = bookInfo.getPrice();
+            String totalPayable = String.valueOf(Integer.parseInt(requestedQty) * Double.parseDouble(price));
+            String status = orderInfo.getIsAccepted();
+            String sellerName = buyerInfo.getName();
+            String sellerAddress = buyerInfo.getAddress();
 
-        String image = bookInfo.getImage1();
-        String title = bookInfo.getTitle();
-        String author = bookInfo.getAuthorName();
-        String requestedQty = orderInfo.getQty();
-        String price = bookInfo.getPrice();
-        String totalPayable = String.valueOf(Integer.parseInt(requestedQty) * Double.parseDouble(price));
-        String status = orderInfo.getIsAccepted();
-        String sellerName = buyerInfo.getName();
-        String sellerAddress = buyerInfo.getAddress();
+            if (image != null) {
+                Picasso.with(context)
+                        .load(image)
+                        .placeholder(R.drawable.placeholder)
+                        .centerCrop()
+                        .resize(200, 200)
+                        .into(holder.binding.itemImage);
+            }
 
-        if (image != null){
-            Picasso.with(context)
-                    .load(image)
-                    .placeholder(R.drawable.placeholder)
-                    .centerCrop()
-                    .resize(200,200)
-                    .into(holder.binding.itemImage);
+            if (status.equals("0")) {
+                holder.binding.phoneLayout.setVisibility(View.GONE);
+                holder.binding.acceptBtn.setVisibility(View.VISIBLE);
+            } else {
+
+                String sellerPhone = buyerInfo.getPhone();
+                holder.binding.buyerPhone.setText(context.getString(R.string.phone, sellerPhone));
+
+                holder.binding.sellerInfoLayout.setVisibility(View.VISIBLE);
+                holder.binding.acceptBtn.setVisibility(View.GONE);
+            }
+
+            holder.binding.title.setText(title);
+            holder.binding.author.setText(context.getString(R.string.author, author));
+            holder.binding.requestedQty.setText(context.getString(R.string.requested_quantity, requestedQty));
+            holder.binding.price.setText(context.getString(R.string.price, price));
+            holder.binding.totalPayable.setText(context.getString(R.string.total_payable, totalPayable));
+
+            holder.binding.buyerName.setText(context.getString(R.string.seller_name, sellerName));
+            holder.binding.buyerAddress.setText(context.getString(R.string.seller_address, sellerAddress));
+
+            holder.binding.acceptBtn.setOnClickListener(view -> callBack.acceptOrder(String.valueOf(orderInfo.getId())));
+            holder.binding.callBtn.setOnClickListener(view -> {
+                callBack.openDialer(buyerInfo.getPhone());
+            });
+        }else {
+            items.remove(position);
+            notifyDataSetChanged();
+            //holder.binding.mainView.setVisibility(View.GONE);
         }
-
-        if (status.equals("0")) {
-            holder.binding.phoneLayout.setVisibility(View.GONE);
-            holder.binding.acceptBtn.setVisibility(View.VISIBLE);
-        } else {
-
-            String sellerPhone = buyerInfo.getPhone();
-            holder.binding.buyerPhone.setText(context.getString(R.string.phone, sellerPhone));
-
-            holder.binding.sellerInfoLayout.setVisibility(View.VISIBLE);
-            holder.binding.acceptBtn.setVisibility(View.GONE);
-        }
-
-        holder.binding.title.setText(title);
-        holder.binding.author.setText(context.getString(R.string.author, author));
-        holder.binding.requestedQty.setText(context.getString(R.string.requested_quantity, requestedQty));
-        holder.binding.price.setText(context.getString(R.string.price, price));
-        holder.binding.totalPayable.setText(context.getString(R.string.total_payable, totalPayable));
-
-        holder.binding.buyerName.setText(context.getString(R.string.seller_name, sellerName));
-        holder.binding.buyerAddress.setText(context.getString(R.string.seller_address, sellerAddress));
-
-        holder.binding.acceptBtn.setOnClickListener(view -> callBack.acceptOrder(String.valueOf(orderInfo.getId())));
-        holder.binding.callBtn.setOnClickListener(view -> {
-            callBack.openDialer(buyerInfo.getPhone());
-        });
     }
 
     @Override
@@ -106,8 +111,9 @@ public class SellAdapter extends RecyclerView.Adapter<SellAdapter.ItemsViewHolde
         }
     }
 
-    public interface CallBack{
+    public interface CallBack {
         void acceptOrder(String id);
+
         void openDialer(String phone);
     }
 }

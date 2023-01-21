@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.fitareq.oldbookstore.R;
+import com.fitareq.oldbookstore.data.model.UpdateTokenBody;
 import com.fitareq.oldbookstore.data.model.login.LoginBody;
 import com.fitareq.oldbookstore.data.repository.LoginRepository;
 import com.fitareq.oldbookstore.databinding.ActivityLoginBinding;
@@ -19,6 +21,8 @@ import com.fitareq.oldbookstore.ui.registration.RegistrationActivity;
 import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 import com.fitareq.oldbookstore.utils.PrefConstants;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -66,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         dialog.loading();
                         break;
                     case SUCCESS:
-                        dialog.success();
+                        //dialog.success();
                         PrefConstants.saveStringToSharedPref(PrefConstants.KEY_ACCESS_TOKEN, loginResponse.getData().getAccessToken(), LoginActivity.this);
                         PrefConstants.setUserLoggedIn(LoginActivity.this, true);
                         AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, this);
@@ -75,6 +79,21 @@ public class LoginActivity extends AppCompatActivity {
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                if (!AppConstants.FIREBASE_TOKEN.isEmpty()){
+                                    viewModel.updateToken(new UpdateTokenBody(AppConstants.FIREBASE_TOKEN)).observe(LoginActivity.this, tokenUpdate->{
+                                        switch (tokenUpdate.getStatus()){
+                                            case LOADING:
+                                                Log.v("tokenUpdate", "Loading");
+                                                break;
+                                            case SUCCESS:
+                                                Log.v("tokenUpdate", "Success");
+                                                break;
+                                            case FAILED:
+                                                Log.v("tokenUpdate", "Failed");
+                                                break;
+                                        }
+                                    });
+                                }
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             }

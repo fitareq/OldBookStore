@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
                     case SUCCESS:
                         if (searchedData.getData() != null && !searchedData.getData().isEmpty()) {
                             binding.searchProduct.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
-                            binding.searchProduct.setAdapter(new ItemsAdapter(searchedData.getData()));
+                            binding.searchProduct.setAdapter(new ItemsAdapter(searchedData.getData(), false));
                             showNothingFound(View.VISIBLE, View.GONE);
                         }else {
                             showNothingFound(View.GONE, View.VISIBLE);

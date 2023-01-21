@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.fitareq.oldbookstore.data.model.book_details.CreateBookOrderBody;
 import com.fitareq.oldbookstore.data.model.book_details.CreateBookOrderResponse;
+import com.fitareq.oldbookstore.data.model.book_details.UpdateBookBody;
 import com.fitareq.oldbookstore.data.model.homepage_books.Item;
 import com.fitareq.oldbookstore.data.model.responses.RepositoryResponse;
 import com.fitareq.oldbookstore.data.repository.BookDetailsRepository;
@@ -25,5 +26,13 @@ public class BookDetailsViewModel extends AndroidViewModel {
 
     public LiveData<RepositoryResponse<CreateBookOrderResponse>> createOrder(CreateBookOrderBody body){
         return repository.createOrder(body);
+    }
+
+    public LiveData<RepositoryResponse<Object>> deleteBook(String url){
+        return repository.deleteBook(url);
+    }
+
+    public LiveData<RepositoryResponse<Object>> updateBook(String url, UpdateBookBody body){
+        return repository.updateBook(url, body);
     }
 }

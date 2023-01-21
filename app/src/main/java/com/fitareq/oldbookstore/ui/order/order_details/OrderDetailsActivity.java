@@ -12,17 +12,23 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
+import com.fitareq.oldbookstore.data.model.order.buy_orders.BuyOrderResponse;
+import com.fitareq.oldbookstore.data.model.order.sell_orders.SellOrderResponse;
 import com.fitareq.oldbookstore.databinding.ActivityOrderDetailsBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
 import com.fitareq.oldbookstore.utils.AppConstants;
 import com.fitareq.oldbookstore.utils.CustomDialog;
 
-public class OrderDetailsActivity extends AppCompatActivity implements SellAdapter.CallBack, BuyAdapter.CallBack{
+import java.util.ArrayList;
+import java.util.List;
+
+public class OrderDetailsActivity extends AppCompatActivity implements SellAdapter.CallBack, BuyAdapter.CallBack {
 
     private ActivityOrderDetailsBinding binding;
     private OrderViewModel viewModel;
     private CustomDialog dialog;
     String orderType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +44,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
         viewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         dialog = new CustomDialog(this);
 
-        switch (orderType){
+        switch (orderType) {
             case AppConstants.VALUE_ORDER_TYPE_BUY:
                 getSupportActionBar().setTitle("Buy orders");
                 setupBuyOrder();
@@ -59,17 +65,22 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
     }
 
     private void setupSellOrder() {
-        viewModel.getUserSellOrderInfo().observe(this, sellOrderInfo->{
-            switch (sellOrderInfo.getStatus()){
+        viewModel.getUserSellOrderInfo().observe(this, sellOrderInfo -> {
+            switch (sellOrderInfo.getStatus()) {
                 case LOADING:
                     dialog.loading();
                     break;
                 case SUCCESS:
-                    if (sellOrderInfo.getData() != null && !sellOrderInfo.getData().isEmpty()){
+                    if (sellOrderInfo.getData() != null && !sellOrderInfo.getData().isEmpty()) {
+                        List<SellOrderResponse> sellOrderResponses = new ArrayList<>();
+                        for (SellOrderResponse response : sellOrderInfo.getData()) {
+                            if (response.getBuyerInfo() != null && response.getOrderInfo() != null && response.getBookInfo() != null)
+                                sellOrderResponses.add(response);
+                        }
                         binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
-                        binding.ordersRv.setAdapter(new SellAdapter(sellOrderInfo.getData(), this));
+                        binding.ordersRv.setAdapter(new SellAdapter(sellOrderResponses, this));
 
-                    }else {
+                    } else {
                         showNothingFound();
                     }
                     dialog.dismissDialog();
@@ -83,17 +94,22 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
     }
 
     private void setupBuyOrder() {
-        viewModel.getUserBuyOrderInfo().observe(this, buyOrderInfo->{
-            switch (buyOrderInfo.getStatus()){
+        viewModel.getUserBuyOrderInfo().observe(this, buyOrderInfo -> {
+            switch (buyOrderInfo.getStatus()) {
                 case LOADING:
                     dialog.loading();
                     break;
                 case SUCCESS:
-                    if (buyOrderInfo.getData() != null && !buyOrderInfo.getData().isEmpty()){
+                    if (buyOrderInfo.getData() != null && !buyOrderInfo.getData().isEmpty()) {
+                        List<BuyOrderResponse> buyOrderResponses = new ArrayList<>();
+                        for (BuyOrderResponse response : buyOrderInfo.getData()) {
+                            if (response.getSellerInfo() != null && response.getOrderInfo() != null && response.getBookInfo() != null)
+                                buyOrderResponses.add(response);
+                        }
                         binding.ordersRv.setLayoutManager(new LinearLayoutManager(this));
-                        binding.ordersRv.setAdapter(new BuyAdapter(buyOrderInfo.getData(), this));
+                        binding.ordersRv.setAdapter(new BuyAdapter(buyOrderResponses, this));
 
-                    }else {
+                    } else {
                         showNothingFound();
                     }
                     dialog.dismissDialog();
@@ -108,9 +124,9 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
 
     @Override
     public void acceptOrder(String id) {
-        String url = AppConstants.ACCEPT_ORDER_ENDPOINT+id;
-        viewModel.acceptOrder(url).observe(this, acceptOrderResponse->{
-            switch (acceptOrderResponse.getStatus()){
+        String url = AppConstants.ACCEPT_ORDER_ENDPOINT + id;
+        viewModel.acceptOrder(url).observe(this, acceptOrderResponse -> {
+            switch (acceptOrderResponse.getStatus()) {
                 case LOADING:
                     dialog.loading();
                     break;
@@ -121,6 +137,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
                         public void run() {
                             startActivity(new Intent(OrderDetailsActivity.this, OrderDetailsActivity.class)
                                     .putExtra(AppConstants.KEY_ORDER_TYPE, orderType));
+                            finish();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -128,7 +145,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
                                 }
                             });
                         }
-                    },1000);
+                    }, 1000);
                     break;
                 case FAILED:
                     dialog.error("Couldn't accept order. Please try again.");
@@ -137,7 +154,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements SellAdapt
         });
     }
 
-    private void showNothingFound(){
+    private void showNothingFound() {
         binding.ordersRv.setVisibility(View.GONE);
         binding.nothingFoundLayout.setVisibility(View.VISIBLE);
     }

@@ -16,7 +16,7 @@
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_my_books.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_order_details.xml" value="0.1675929884566054" />
-        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_profile_setup.xml" value="0.17192982456140352" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_profile_setup.xml" value="0.1" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_registration.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_search.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/activity_single_category.xml" value="0.1675929884566054" />
@@ -37,8 +37,10 @@
         <entry key="..\:/OldBookStore/app/src/main/res/layout/items_layout.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/loading_layout.xml" value="0.17192982456140352" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/nothing_found.xml" value="0.1675929884566054" />
+        <entry key="..\:/OldBookStore/app/src/main/res/layout/price_update.xml" value="0.21" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/success_layout.xml" value="0.164967562557924" />
         <entry key="..\:/OldBookStore/app/src/main/res/layout/toolbar.xml" value="0.1675929884566054" />
+        <entry key="..\:/OldBookStore/app/src/main/res/menu/more_menu.xml" value="0.1675929884566054" />
         <entry key="..\:/OldBookStore/app/src/main/res/menu/nav_menu.xml" value="0.17192982456140352" />
       </map>
     </option>

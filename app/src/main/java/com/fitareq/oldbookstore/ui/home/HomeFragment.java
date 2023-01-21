@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         viewModel.getAllBooks().observe(requireActivity(), allBooks->{
             if (allBooks != null){
                 switch (allBooks.getStatus()){
@@ -86,19 +87,19 @@ public class HomeFragment extends Fragment {
 
 
         binding.oldBookStoreItems.itemsRv.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
-        binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(new ArrayList<>()));
+        binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(new ArrayList<>(), false));
     }
 
     private void setupAllItems(List<Item> items) {
         binding.allItems.title.setText(R.string.items_for_sale);
         binding.allItems.itemsRv.setLayoutManager(new GridLayoutManager(requireActivity(), 2, RecyclerView.VERTICAL, false));
-        binding.allItems.itemsRv.setAdapter(new ItemsAdapter(items));
+        binding.allItems.itemsRv.setAdapter(new ItemsAdapter(items, false));
     }
 
     private void setupOldBookStoreItems(List<Item> items) {
         binding.oldBookStoreItems.title.setText(R.string.app_name);
         binding.oldBookStoreItems.itemsRv.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
-        binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(items));
+        binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(items, false));
     }
 
     @Override

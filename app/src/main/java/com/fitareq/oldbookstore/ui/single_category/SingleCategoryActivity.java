@@ -70,6 +70,6 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
     private void setupBooks(List<Item> categoryBooks) {
         binding.booksRv.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
-        binding.booksRv.setAdapter(new ItemsAdapter(categoryBooks));
+        binding.booksRv.setAdapter(new ItemsAdapter(categoryBooks, false));
     }
 }

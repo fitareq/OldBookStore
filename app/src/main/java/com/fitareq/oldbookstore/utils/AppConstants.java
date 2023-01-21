@@ -12,8 +12,12 @@ public class AppConstants {
     public static final String SINGLE_CATEGORY_BOOKS_ENDPOINT = BASE_URL+"category-books/";
     public static final String ACCEPT_ORDER_ENDPOINT = BASE_URL+"accept-order/";
     public static final String MY_BOOKS_ENDPOINT = BASE_URL+"user-books/";
+    public static final String MY_BOOK_DELETE_ENDPOINT = BASE_URL+"books/";
+    public static final String MY_BOOK_UPDATE_ENDPOINT = BASE_URL+"books/";
     public static final String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
     public static String TOKEN = "";
+    public static String FIREBASE_TOKEN = "";
+    public static String USER_ID = "-1";
 
     public static final String DATE_FORMAT = "hh:mmaa  MMM dd,yyyy";
 

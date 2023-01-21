@@ -24,6 +24,7 @@ public class MyBooksActivity extends AppCompatActivity {
     private ActivityMyBooksBinding binding;
     private MyBooksViewModel viewModel;
     private CustomDialog dialog;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,22 @@ public class MyBooksActivity extends AppCompatActivity {
 
 
         String userId = getIntent().getStringExtra("id");
-        String url = AppConstants.MY_BOOKS_ENDPOINT+userId;
+        url = AppConstants.MY_BOOKS_ENDPOINT+userId;
         viewModel = new ViewModelProvider(this).get(MyBooksViewModel.class);
         dialog = new CustomDialog(this);
 
+        binding.toolbarLay.toolbar.setNavigationOnClickListener(view -> onBackPressed());
+
+    }
+
+    private void setupBooks(List<Item> categoryBooks) {
+        binding.booksRv.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
+        binding.booksRv.setAdapter(new ItemsAdapter(categoryBooks, true));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         viewModel.getMyBooks(url).observe(this, myBooks->{
             if (myBooks !=null){
                 switch (myBooks.getStatus()){
@@ -64,13 +77,5 @@ public class MyBooksActivity extends AppCompatActivity {
                 }
             }
         });
-
-        binding.toolbarLay.toolbar.setNavigationOnClickListener(view -> onBackPressed());
-
-    }
-
-    private void setupBooks(List<Item> categoryBooks) {
-        binding.booksRv.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
-        binding.booksRv.setAdapter(new ItemsAdapter(categoryBooks));
     }
 }

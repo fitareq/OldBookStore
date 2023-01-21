@@ -19,9 +19,11 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
     private List<Item> items;
+    private boolean isOwnBook;
 
-    public ItemsAdapter(List<Item> items) {
+    public ItemsAdapter(List<Item> items, boolean isOwnBook) {
         this.items = items;
+        this.isOwnBook = isOwnBook;
     }
 
     @NonNull
@@ -44,16 +46,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             holder.binding.itemStatus.setTextColor(Color.RED);
         }
         String image = item.getImage1();
-        if (image != null){
+        if (image != null) {
             Picasso.with(holder.itemView.getContext()).load(image).fit().into(holder.binding.itemImage);
         }
         holder.binding.getRoot().setOnClickListener(view -> {
             holder.itemView.getContext().startActivity(
-                    new Intent(
-                            holder.itemView.getContext().getApplicationContext(), BookDetailsActivity.class
-                    )
-                    .putExtra("id", String.valueOf(item.getId()))
-            );
+                    new Intent(holder.itemView.getContext().getApplicationContext(), BookDetailsActivity.class)
+                            .putExtra("id", String.valueOf(item.getId()))
+                            .putExtra("is_own_book", isOwnBook));
         });
     }
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1041457734572",
+    "project_id": "old-book-store-de375",
+    "storage_bucket": "old-book-store-de375.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041457734572:android:4e421f8728869334dd9009",
+        "android_client_info": {
+          "package_name": "com.fitareq.oldbookstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041457734572-kh3rvkf1bjg44r43hk66uvl8cueg0c3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitareq.oldbookstore",
+            "certificate_hash": "6be3f880f56954d3be0a3cfff40a244618c1f148"
+          }
+        },
+        {
+          "client_id": "1041457734572-v3k3hlkpf50i1u9mhsavq9jk7safcl7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApqfIiwTULe-ubfIHdx5sxTE6Qjkcz4ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041457734572-v3k3hlkpf50i1u9mhsavq9jk7safcl7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,10 +22,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
 import com.fitareq.oldbookstore.R;
+import com.fitareq.oldbookstore.data.model.UpdateTokenBody;
 import com.fitareq.oldbookstore.data.model.registration.RegistrationBody;
 import com.fitareq.oldbookstore.databinding.ActivityRegistrationBinding;
 import com.fitareq.oldbookstore.ui.MainActivity;
@@ -212,9 +214,25 @@ public class RegistrationActivity extends AppCompatActivity {
                     PrefConstants.setUserLoggedIn(RegistrationActivity.this, true);
                     AppConstants.TOKEN = PrefConstants.getStringFromSharedPref(PrefConstants.KEY_ACCESS_TOKEN, this);
                     dialog.success();
+
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            if (!AppConstants.FIREBASE_TOKEN.isEmpty()){
+                                viewModel.updateToken(new UpdateTokenBody(AppConstants.FIREBASE_TOKEN)).observe(RegistrationActivity.this, tokenUpdate->{
+                                    switch (tokenUpdate.getStatus()){
+                                        case LOADING:
+                                            Log.v("tokenUpdate", "Loading");
+                                            break;
+                                        case SUCCESS:
+                                            Log.v("tokenUpdate", "Success");
+                                            break;
+                                        case FAILED:
+                                            Log.v("tokenUpdate", "Failed");
+                                            break;
+                                    }
+                                });
+                            }
                             startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                             finish();
                         }

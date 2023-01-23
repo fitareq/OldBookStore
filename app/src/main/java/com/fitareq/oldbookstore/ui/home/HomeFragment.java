@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
     private void setupOldBookStoreItems(List<Item> items) {
         binding.oldBookStoreItems.title.setText(R.string.app_name);
         binding.oldBookStoreItems.itemsRv.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
-        binding.oldBookStoreItems.itemsRv.setAdapter(new ItemsAdapter(items, false));
+        binding.oldBookStoreItems.itemsRv.setAdapter(new StoreAdapter(items, false));
     }
 
     @Override

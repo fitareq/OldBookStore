@@ -52,6 +52,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         boolean isOwnBook = getIntent().getBooleanExtra("is_own_book", false);
         if (isOwnBook) {
             binding.moreIv.setVisibility(View.VISIBLE);
+            binding.buyRequest.setEnabled(false);
+            binding.buyRequest.setBackgroundColor(Color.GRAY);
         } else {
             binding.moreIv.setVisibility(View.GONE);
         }
@@ -137,7 +139,9 @@ public class BookDetailsActivity extends AppCompatActivity {
                         break;
                     case SUCCESS:
                         dialog.success();
-                        startActivity(new Intent(BookDetailsActivity.this, BookDetailsActivity.class));
+                        startActivity(new Intent(BookDetailsActivity.this, BookDetailsActivity.class)
+                                .putExtra("id", bookId)
+                                .putExtra("is_own_book", true));
                         finish();
                         //onBackPressed();
                         break;
@@ -215,6 +219,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     private void setupBookDetails(Item data) {
+
         if (data.getImages() != null && !data.getImages().isEmpty()) {
             setupBookImages(data.getImages());
         } else {

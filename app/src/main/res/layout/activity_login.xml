@@ -114,6 +114,7 @@
                 android:gravity="end"
                 android:text="@string/forgot_password"
                 android:textColor="@color/primary"
+                android:visibility="invisible"
                 android:textSize="@dimen/forgot_pass_text_size"
                 android:textStyle="bold" />
 
